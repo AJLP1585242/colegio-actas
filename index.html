@@ -216,17 +216,21 @@
     
     <!-- Buscador Inteligente con IA -->
     <div class="buscador-ia-container">
-      <h3>🤖 Búsqueda Inteligente</h3>
-      <p>Busca estudiantes por nombre. La IA analizará todas las actas automáticamente.</p>
+      <h3>🔍 Búsqueda Rápida de Estudiantes</h3>
+      <p>Busca por nombre y encuentra al estudiante instantáneamente.</p>
       <div class="busqueda-ia-form">
         <input type="text" 
                id="busqueda-ia-input" 
-               placeholder="Escribe el nombre del estudiante..." 
-               autocomplete="off">
+               placeholder="Ej: Maria Garcia, Juan Carlos..." 
+               autocomplete="off"
+               onkeypress="if(event.key==='Enter') buscarConIA()">
         <button type="button" onclick="buscarConIA()" class="btn-buscar-ia">
           🔍 Buscar
         </button>
       </div>
+      <p style="font-size:0.75rem; color: rgba(255,255,255,0.5); margin-top:10px;">
+        💡 Búsqueda instantánea en el índice • Presiona Enter para buscar
+      </p>
     </div>
 
     <h2>O busca manualmente</h2>

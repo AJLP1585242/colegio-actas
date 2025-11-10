@@ -1,11 +1,12 @@
-// Buscador Inteligente con IA - Análisis de imágenes de actas
-// Usa OCR en el navegador (Tesseract.js) para extraer texto de las imágenes
+// Buscador Inteligente - Búsqueda rápida en índice pre-generado
+// Sistema de búsqueda instantánea sin necesidad de OCR
 
 class BuscadorIA {
   constructor() {
     this.resultados = [];
     this.buscando = false;
     this.catalogoCompleto = this.obtenerCatalogoCompleto();
+    this.indiceEstudiantes = null; // Se cargará dinámicamente
   }
 
   obtenerCatalogoCompleto() {
@@ -43,19 +44,99 @@ class BuscadorIA {
     }
 
     const nombre = nombreBuscar.trim().toLowerCase();
-    if (nombre.length < 3) {
-      alert('Por favor ingresa al menos 3 letras del nombre');
+    if (nombre.length < 2) {
+      alert('Por favor ingresa al menos 2 letras del nombre');
       return;
     }
 
     this.buscando = true;
     this.resultados = [];
-    this.mostrarProgreso('Iniciando búsqueda inteligente...', 0);
+    this.mostrarProgreso('Buscando...', 50);
 
     try {
-      // Cargar Tesseract.js si no está cargado
+      // Cargar índice si no está cargado
+      if (!this.indiceEstudiantes) {
+        this.mostrarProgreso('Cargando índice de estudiantes...', 30);
+        await this.cargarIndice();
+      }
+
+      this.mostrarProgreso('Buscando coincidencias...', 70);
+
+      // Búsqueda rápida en el índice
+      for (const [nombreCompleto, ubicaciones] of Object.entries(this.indiceEstudiantes)) {
+        if (nombreCompleto.toLowerCase().includes(nombre)) {
+          // Agregar todas las ubicaciones donde aparece este estudiante
+          ubicaciones.forEach(ubicacion => {
+            this.resultados.push({
+              anio: ubicacion.anio,
+              grado: ubicacion.grado,
+              seccion: ubicacion.seccion,
+              url: `${ubicacion.anio}/${ubicacion.anio}.html`,
+              nombreCompleto: nombreCompleto
+            });
+          });
+        }
+      }
+
+      this.mostrarProgreso('Completado', 100);
+      this.mostrarResultados(nombre);
+
+    } catch (error) {
+      console.error('Error en búsqueda:', error);
+      
+      // Si falla la carga del índice, ofrecer búsqueda manual
+      this.ocultarProgreso();
+      const respuesta = confirm(
+        'No se pudo cargar el índice de búsqueda.\n\n' +
+        '¿Deseas crear el índice ahora? (Tomará unos minutos pero solo se hace una vez)\n\n' +
+        'Presiona Aceptar para crear el índice, o Cancelar para buscar manualmente.'
+      );
+      
+      if (respuesta) {
+        this.generarIndiceConOCR();
+      }
+    } finally {
+      this.buscando = false;
+      setTimeout(() => this.ocultarProgreso(), 500);
+    }
+  }
+
+  async cargarIndice() {
+    try {
+      const response = await fetch('js/indice-estudiantes.json');
+      if (!response.ok) throw new Error('No se pudo cargar el índice');
+      this.indiceEstudiantes = await response.json();
+    } catch (error) {
+      // Si no existe el índice, usar un índice demo
+      console.warn('Usando índice demo. Genera el índice real con OCR.');
+      this.indiceEstudiantes = this.obtenerIndicDemo();
+      throw error; // Propagar para que se ofrezca generarlo
+    }
+  }
+
+  obtenerIndicDemo() {
+    // Índice de demostración - puedes reemplazar esto con nombres reales
+    return {
+      "EJEMPLO ESTUDIANTE UNO": [
+        { "anio": "2012", "grado": "5", "seccion": "A" }
+      ],
+      "EJEMPLO ESTUDIANTE DOS": [
+        { "anio": "2011", "grado": "4", "seccion": "B" }
+      ]
+      // Aquí irían todos los nombres de estudiantes extraídos con OCR
+    };
+  }
+
+  async generarIndiceConOCR() {
+    if (this.buscando) return;
+    
+    this.buscando = true;
+    this.mostrarProgreso('Preparando generación de índice...', 0);
+
+    try {
+      // Cargar Tesseract.js
       if (typeof Tesseract === 'undefined') {
-        this.mostrarProgreso('Cargando motor de reconocimiento de texto...', 5);
+        this.mostrarProgreso('Cargando motor OCR...', 5);
         await this.cargarTesseract();
       }
 
@@ -68,34 +149,33 @@ class BuscadorIA {
         }
       });
 
+      const nuevoIndice = {};
       let totalActas = 0;
       let actasAnalizadas = 0;
 
-      // Contar total de actas
+      // Contar total
       for (const [anio, grados] of Object.entries(this.catalogoCompleto)) {
         for (const [grado, secciones] of Object.entries(grados)) {
           totalActas += secciones.length;
         }
       }
 
-      // Buscar en cada acta
+      // Analizar cada acta
       for (const [anio, grados] of Object.entries(this.catalogoCompleto)) {
         for (const [grado, secciones] of Object.entries(grados)) {
           for (const seccion of secciones) {
             const progreso = Math.round((actasAnalizadas / totalActas) * 100);
             this.mostrarProgreso(`Analizando ${anio} - Grado ${grado}${seccion}...`, progreso);
             
-            const urlActa = `${anio}/${anio}.html`;
-            const encontrado = await this.analizarActa(worker, urlActa, anio, grado, seccion, nombre);
+            const nombres = await this.extraerNombresDeActa(worker, anio, grado, seccion);
             
-            if (encontrado) {
-              this.resultados.push({
-                anio,
-                grado,
-                seccion,
-                url: urlActa
-              });
-            }
+            // Agregar al índice
+            nombres.forEach(nombre => {
+              if (!nuevoIndice[nombre]) {
+                nuevoIndice[nombre] = [];
+              }
+              nuevoIndice[nombre].push({ anio, grado, seccion });
+            });
 
             actasAnalizadas++;
           }
@@ -103,11 +183,15 @@ class BuscadorIA {
       }
 
       await worker.terminate();
-      this.mostrarResultados(nombre);
+
+      // Guardar índice (mostrar JSON para que el usuario lo copie)
+      const jsonIndice = JSON.stringify(nuevoIndice, null, 2);
+      this.mostrarIndiceGenerado(jsonIndice);
+      this.indiceEstudiantes = nuevoIndice;
 
     } catch (error) {
-      console.error('Error en búsqueda:', error);
-      alert('Error durante la búsqueda: ' + error.message);
+      console.error('Error generando índice:', error);
+      alert('Error al generar el índice: ' + error.message);
     } finally {
       this.buscando = false;
       this.ocultarProgreso();
@@ -124,43 +208,43 @@ class BuscadorIA {
     });
   }
 
-  async analizarActa(worker, urlActa, anio, grado, seccion, nombreBuscar) {
+  async extraerNombresDeActa(worker, anio, grado, seccion) {
     try {
-      // Cargar el HTML del acta
+      const urlActa = `${anio}/${anio}.html`;
       const response = await fetch(urlActa);
-      if (!response.ok) return false;
+      if (!response.ok) return [];
       
       const html = await response.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, 'text/html');
       
-      // Encontrar la sección específica
       const actaCard = doc.querySelector(
         `section[data-grado="${grado}"][data-seccion="${seccion}"]`
       );
       
-      if (!actaCard) return false;
+      if (!actaCard) return [];
 
-      // Obtener todas las imágenes de esta acta
       const imagenes = actaCard.querySelectorAll('img');
+      const nombres = [];
       
       for (const img of imagenes) {
-        const urlImagen = img.src;
+        const { data: { text } } = await worker.recognize(img.src);
         
-        // Analizar imagen con OCR
-        const { data: { text } } = await worker.recognize(urlImagen);
-        const textoLimpio = text.toLowerCase();
-        
-        // Buscar el nombre en el texto extraído
-        if (textoLimpio.includes(nombreBuscar)) {
-          return true;
-        }
+        // Extraer nombres (líneas que parecen nombres)
+        const lineas = text.split('\n');
+        lineas.forEach(linea => {
+          const limpia = linea.trim();
+          // Filtrar líneas que parecen nombres (más de 3 palabras, letras mayúsculas)
+          if (limpia.length > 5 && /[A-ZÁÉÍÓÚÑ]/.test(limpia)) {
+            nombres.push(limpia);
+          }
+        });
       }
 
-      return false;
+      return [...new Set(nombres)]; // Eliminar duplicados
     } catch (error) {
-      console.error(`Error analizando ${anio}-${grado}${seccion}:`, error);
-      return false;
+      console.error(`Error extrayendo nombres ${anio}-${grado}${seccion}:`, error);
+      return [];
     }
   }
 
@@ -219,18 +303,21 @@ class BuscadorIA {
 
     if (this.resultados.length === 0) {
       html += `
-        <p class="sin-resultados">No se encontraron coincidencias en ninguna acta.</p>
+        <p class="sin-resultados">No se encontraron coincidencias.</p>
         <p class="sugerencia">Intenta con otro nombre o verifica la ortografía.</p>
+        <p class="sugerencia"><small>Si crees que el estudiante existe, puedes generar el índice completo usando OCR.</small></p>
       `;
     } else {
-      html += `<p class="total-resultados">Se encontraron ${this.resultados.length} coincidencia(s):</p>`;
+      html += `<p class="total-resultados">✅ ${this.resultados.length} coincidencia(s) encontrada(s):</p>`;
       html += '<div class="lista-resultados">';
       
       this.resultados.forEach(resultado => {
+        const nombreMostrar = resultado.nombreCompleto || 'Estudiante';
         html += `
           <div class="resultado-item">
             <div class="resultado-info">
-              <strong>📅 Año:</strong> ${resultado.anio}<br>
+              <strong>� Nombre:</strong> ${nombreMostrar}<br>
+              <strong>�📅 Año:</strong> ${resultado.anio}<br>
               <strong>📚 Grado:</strong> ${resultado.grado}°<br>
               <strong>🏫 Sección:</strong> ${resultado.seccion}
             </div>
@@ -251,6 +338,33 @@ class BuscadorIA {
     `;
 
     modal.innerHTML = html;
+    modal.style.display = 'flex';
+  }
+
+  mostrarIndiceGenerado(jsonIndice) {
+    let modal = document.getElementById('modal-indice-generado');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'modal-indice-generado';
+      modal.className = 'modal-busqueda';
+      document.body.appendChild(modal);
+    }
+
+    modal.innerHTML = `
+      <div class="modal-contenido resultados">
+        <h3>✅ Índice Generado</h3>
+        <p>Copia este contenido y guárdalo como <code>js/indice-estudiantes.json</code></p>
+        <textarea id="indice-json" readonly style="width:100%; height:300px; margin:15px 0; padding:10px; font-family:monospace; font-size:0.8rem; background:#1a1a1a; color:#34d399; border:1px solid #34d399; border-radius:8px;">${jsonIndice}</textarea>
+        <button onclick="copiarIndice()" class="btn-ver-acta" style="width:100%; margin-bottom:10px;">
+          📋 Copiar al portapapeles
+        </button>
+        <button onclick="descargarIndice()" class="btn-ver-acta" style="width:100%; margin-bottom:10px;">
+          💾 Descargar archivo
+        </button>
+        <button onclick="cerrarModalIndice()" class="btn-cerrar">Cerrar</button>
+      </div>
+    `;
+
     modal.style.display = 'flex';
   }
 }
@@ -275,4 +389,30 @@ function cerrarResultados() {
 function verActa(anio, grado, seccion) {
   // Redirigir a la página del año con los parámetros
   window.location.href = `${anio}/${anio}.html?grado=${grado}&seccion=${seccion}`;
+}
+
+function copiarIndice() {
+  const textarea = document.getElementById('indice-json');
+  textarea.select();
+  document.execCommand('copy');
+  alert('✅ Índice copiado al portapapeles');
+}
+
+function descargarIndice() {
+  const textarea = document.getElementById('indice-json');
+  const blob = new Blob([textarea.value], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'indice-estudiantes.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  alert('✅ Archivo descargado. Muévelo a la carpeta js/');
+}
+
+function cerrarModalIndice() {
+  const modal = document.getElementById('modal-indice-generado');
+  if (modal) {
+    modal.style.display = 'none';
+  }
 }
