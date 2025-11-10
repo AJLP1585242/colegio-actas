@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Actas 1995</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/estilos.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="logo">Antonia Moreno de Caceres</h1>
+  <h2>Actas del Año 1995</h2>
+
+  </header>
+
+  <main>
+    <!-- Grado 1, Sección A -->
+    <section class="card" data-grado="1" data-seccion="A">
+      <p><b>1995 - Grado 1 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1758557983/91aabbf1-7581-46e1-853f-f4bcd53388db_hror8s.jpg" alt="Acta 1995 Grado 1A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1758557987/f5b627b3-451c-439d-b3cc-975025bd5a4b_ojghaq.jpg" alt="Acta 1995 Grado 1A 2">
+      <button onclick="generarPDF('1995','1','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1758557983/91aabbf1-7581-46e1-853f-f4bcd53388db_hror8s.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1758557987/f5b627b3-451c-439d-b3cc-975025bd5a4b_ojghaq.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 2, Sección A -->
+    <section class="card" data-grado="2" data-seccion="A">
+      <p><b>1995 - Grado 2 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752922/CamScanner_07-11-2025_13.02_31_rbbdzw.jpg" alt="Acta 1995 Grado 2A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752927/CamScanner_07-11-2025_13.02_32_jpxqek.jpg" alt="Acta 1995 Grado 2A 2">
+      <button onclick="generarPDF('1995','2','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752922/CamScanner_07-11-2025_13.02_31_rbbdzw.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752927/CamScanner_07-11-2025_13.02_32_jpxqek.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 2, Sección B -->
+    <section class="card" data-grado="2" data-seccion="B">
+      <p><b>1995 - Grado 2 - Sección B</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753130/CamScanner_07-11-2025_13.02_33_cljj3z.jpg" alt="Acta 1995 Grado 2B 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753157/CamScanner_07-11-2025_13.02_34_hbhdk6.jpg" alt="Acta 1995 Grado 2B 2">
+      <button onclick="generarPDF('1995','2','B','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753130/CamScanner_07-11-2025_13.02_33_cljj3z.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753157/CamScanner_07-11-2025_13.02_34_hbhdk6.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 3, Sección A -->
+    <section class="card" data-grado="3" data-seccion="A">
+      <p><b>1995 - Grado 3 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753055/CamScanner_07-11-2025_13.02_35_ctxkvd.jpg" alt="Acta 1995 Grado 3A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753060/CamScanner_07-11-2025_13.02_36_wv5jns.jpg" alt="Acta 1995 Grado 3A 2">
+      <button onclick="generarPDF('1995','3','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753055/CamScanner_07-11-2025_13.02_35_ctxkvd.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753060/CamScanner_07-11-2025_13.02_36_wv5jns.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 4, Única -->
+    <section class="card" data-grado="4" data-seccion="U">
+      <p><b>1995 - Grado 4 - Sección U</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753086/CamScanner_07-11-2025_13.02_39_khjgwu.jpg" alt="Acta 1995 Grado 4U 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753091/CamScanner_07-11-2025_13.02_40_jk8b9a.jpg" alt="Acta 1995 Grado 4U 2">
+      <button onclick="generarPDF('1995','4','U','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753086/CamScanner_07-11-2025_13.02_39_khjgwu.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753091/CamScanner_07-11-2025_13.02_40_jk8b9a.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 5, Única -->
+    <section class="card" data-grado="5" data-seccion="U">
+      <p><b>1995 - Grado 5 - Sección U</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753071/CamScanner_07-11-2025_13.02_37_xhrfss.jpg" alt="Acta 1995 Grado 5U 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753076/CamScanner_07-11-2025_13.02_38_tatzne.jpg" alt="Acta 1995 Grado 5U 2">
+      <button onclick="generarPDF('1995','5','U','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753071/CamScanner_07-11-2025_13.02_37_xhrfss.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762753076/CamScanner_07-11-2025_13.02_38_tatzne.jpg')">Descargar PDF</button>
+    </section>
+  </main>
+  <script src="../js/funciones.js"></script>
+</body>
+</html>

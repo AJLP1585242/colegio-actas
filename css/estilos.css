@@ -1,0 +1,546 @@
+/* --- General --- */
+* {
+  -webkit-tap-highlight-color: rgba(52, 211, 153, 0.2);
+  -webkit-touch-callout: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 35%, #2c5530 100%);
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* --- Para páginas de años (con header fijo) --- */
+body:has(header) {
+  display: block;
+  padding-top: 180px;
+}
+
+/* --- Para página principal (centrado) --- */
+body:not(:has(header)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* --- Header fijo para páginas de años --- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(15, 32, 39, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(52, 211, 153, 0.1);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Main content para páginas de años --- */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* --- Logo --- */
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #34d399;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  animation: fadeInDown 0.8s ease-out;
+  line-height: 1.3;
+}
+
+/* --- Cajas de login y menú --- */
+.login-box, .menu-box {
+  background: rgba(15, 32, 39, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(52, 211, 153, 0.1);
+  padding: 40px 36px;
+  border-radius: 16px;
+  margin: 0 auto;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* --- Títulos --- */
+h2 {
+  margin-bottom: 28px;
+  font-size: 1.3rem;
+  color: #e5e7eb;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+/* --- Inputs y selects --- */
+input, select {
+  width: 100%;
+  padding: 14px 16px;
+  margin: 8px 0 16px 0;
+  border-radius: 8px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  outline: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  background: rgba(31, 41, 55, 0.8);
+  color: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus {
+  border: 1px solid #34d399;
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.1),
+    0 0 0 3px rgba(52, 211, 153, 0.1);
+  background: rgba(31, 41, 55, 0.95);
+}
+
+/* --- Botones --- */
+button {
+  width: 100%;
+  padding: 14px 20px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 
+    0 4px 12px rgba(52, 211, 153, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  letter-spacing: 0.3px;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 6px 16px rgba(52, 211, 153, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px rgba(52, 211, 153, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Selector contenedor --- */
+.selector {
+  margin: 18px 0;
+  text-align: left;
+}
+
+.selector label {
+  display: block;
+  margin-bottom: 6px;
+  color: #d1d5db;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* --- Tarjetas de actas --- */
+.card,
+.acta-card {
+  background: rgba(15, 32, 39, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(52, 211, 153, 0.1);
+  padding: 32px;
+  margin: 20px auto;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.card p,
+.acta-card p {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 17px;
+  color: #e0e7ef;
+}
+
+.acta-card h3 {
+  font-size: 1.5rem;
+  color: #34d399;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.acta-card .imagenes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.acta-card button {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  color: #0f2027;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(52, 211, 153, 0.3);
+}
+
+.acta-card button:hover {
+  background: linear-gradient(135deg, #10b981, #059669);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 211, 153, 0.4);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
+  transition: transform 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  touch-action: pan-y pinch-zoom;
+}
+
+/* --- Contenedor con zoom --- */
+.zoom-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.zoom-image {
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+/* --- Controles de zoom --- */
+.zoom-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  display: flex;
+  gap: 5px;
+}
+
+.zoom-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 32, 39, 0.9);
+  color: #34d399;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  min-width: 35px;
+  min-height: 35px;
+}
+
+.zoom-btn:hover {
+  background: rgba(52, 211, 153, 0.2);
+  transform: scale(1.1);
+}
+
+.zoom-btn:active {
+  transform: scale(0.95);
+  background: rgba(52, 211, 153, 0.3);
+}
+
+.zoom-level {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(15, 32, 39, 0.9);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+
+/* --- Animaciones --- */
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive --- */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 768px) {
+  .login-box, .menu-box {
+    width: 85vw;
+    padding: 30px 20px;
+  }
+  
+  .card,
+  .acta-card {
+    padding: 20px;
+    margin: 15px auto;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  header {
+    padding: 15px;
+  }
+  
+  button {
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
+  
+  input, select {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Móviles */
+@media (max-width: 500px) {
+  .login-box, .menu-box {
+    width: 95vw;
+    padding: 20px 15px;
+    margin: 10px auto;
+    border-radius: 12px;
+  }
+  
+  .card,
+  .acta-card {
+    padding: 15px;
+    border-radius: 10px;
+    margin: 12px auto;
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+  }
+  
+  h2 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .acta-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Header fijo responsive */
+  header {
+    padding: 12px 10px;
+  }
+  
+  header .logo {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  header h2 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  body:has(header) {
+    padding-top: 160px;
+  }
+  
+  main {
+    padding: 10px 5px;
+  }
+  
+  /* Botones más grandes para móvil */
+  button {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    margin-top: 15px;
+  }
+  
+  input, select {
+    padding: 13px 14px;
+    font-size: 16px; /* Evita zoom en iOS */
+    margin: 6px 0 12px 0;
+  }
+  
+  .selector {
+    margin: 12px 0;
+  }
+  
+  .selector label {
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+  }
+  
+  /* Controles de zoom responsive */
+  .zoom-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .zoom-controls {
+    top: 8px;
+    right: 8px;
+    gap: 4px;
+  }
+  
+  .zoom-level {
+    bottom: 8px;
+    left: 8px;
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+  
+  /* Imágenes más pequeñas en móvil */
+  img {
+    margin-bottom: 15px;
+  }
+  
+  .acta-card .imagenes {
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .card p,
+  .acta-card p {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+}
+
+/* Pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .login-box, .menu-box {
+    width: 98vw;
+    padding: 15px 10px;
+  }
+  
+  .logo {
+    font-size: 1.1rem;
+  }
+  
+  h2 {
+    font-size: 1rem;
+  }
+  
+  button {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  
+  .zoom-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}
+
+/* Pantallas grandes (Desktop) */
+@media (min-width: 1024px) {
+  .login-box, .menu-box {
+    width: 450px;
+    padding: 45px 40px;
+  }
+  
+  .card,
+  .acta-card {
+    max-width: 1000px;
+    padding: 40px;
+  }
+  
+  main {
+    max-width: 1100px;
+  }
+  
+  /* Mejora visual para pantallas grandes */
+  button:active {
+    transform: translateY(0);
+  }
+  
+  img:hover {
+    transform: scale(1.02);
+  }
+}

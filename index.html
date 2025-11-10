@@ -1,0 +1,288 @@
+<?php
+// Este archivo debe guardarse como index.php para que el PHP funcione
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Actas del Colegio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Sistema de consulta de actas escolares - Antonia Moreno de Caceres">
+  <meta name="theme-color" content="#0f2027">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const anioSelect = document.getElementById('anio');
+      const gradoSelect = document.getElementById('grado');
+      const seccionSelect = document.getElementById('seccion');
+      // Catálogo de respaldo por si falla la carga del año (sin necesidad de servidor)
+      // Para grados sin secciones en la página del año, usa [] para no forzar parámetro de sección.
+     const fallbackCatalogo = {
+  '2012/2012.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  '2011/2011.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  '2010/2010.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B'], '5': ['A','B','C'] },
+  '2009/2009.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','C'] },
+  '2008/2008.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','C'], '5': ['A','B','C'] },
+  '2007/2007.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B'] },
+  '2006/2006.html': { '1': ['A','B','C'], '2': ['A'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B'] },
+  '2005/2005.html': { '1': ['A','B','C','D'], '2': ['A','C'], '3': ['A','B','C'], '4': ['B','C'], '5': ['A'] },
+  '2004/2004.html': { '1': ['A','B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A'], '5': ['A','C'] },
+  '2003/2003.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A'], '4': ['A','B','C'], '5': ['A','B'] },
+  '2002/2002.html': { '1': ['A','B','C','D'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  '2001/2001.html': { '1': ['A','C'], '2': ['A','C'], '3': ['A','C'], '4': ['A','B','C'] },
+  '2000/2000.html': { '1': ['A','C'], '2': ['A'], '3': ['B'], '4': ['A','C'], '5': ['A','B'] },
+  '1999/1999.html': { 
+    '1': ['A','C'], 
+    '2': ['A','B'], 
+    '3': ['A','C'], 
+    '4': ['A','B','C'], 
+    '5': ['A']
+  },
+  '1998/1998.html': {
+    '1': ['A'],
+    '3': ['A','B','C'],
+    '4': ['A','B'],
+    '5': ['A','B']
+  },
+  '1997/1997.html': { 
+    '1': ['A','C'],
+    '2': ['A','B','C'],
+    '3': ['A','B'],
+    '4': ['A','B'],
+    '5': ['A','B']
+  },
+  '1996/1996.html': {
+    '1': ['A','B','C'],
+    '2': ['A','B','POSTERGACION'],
+    '3': ['A','B'],
+    '4': ['A','B'],
+    '5': ['UNICA']
+  },
+  '1995/1995.html': {
+    '1': ['A'],
+    '2': ['A','B'],
+    '3': ['A'],
+    '4': ['U'],
+    '5': ['U']
+  },
+  '1994/1994.html': {
+    '1': ['B'],
+    '2': ['A','B'],
+    '3': [],
+    '4': [],
+    '5': []
+  },
+  '1993/1993.html': { 
+    '1': ['A','B'],
+    '2': ['A','B'],
+    '3': ['A'],
+    '4': ['A'],
+    '5': ['A']
+  },
+  '1992/1992.html': {
+    '1': ['A','B'],
+    '2': ['A'],
+    '3': ['A'],
+    '4': ['A'],
+    '5': ['U']
+  },
+  '1990/1990.html': {
+    '1': ['A','B'],
+    '2': ['A'],
+    '3': ['A']
+  },
+  '1991/1991.html': {
+    '1': ['A','B'],
+    '2': ['A'],
+    '3': ['A']
+  }
+};
+      let mapaActual = null; // { grado: Set(secciones) }
+
+      function resetCombos() {
+        gradoSelect.innerHTML = '<option value="">-- Seleccionar --</option>';
+        seccionSelect.innerHTML = '<option value="">-- Seleccionar --</option>';
+      }
+
+      function poblarGradosDesdeMapa(mapa) {
+        const grados = Object.keys(mapa).sort((a,b)=> Number(a)-Number(b));
+        if (grados.length === 0) {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = 'No hay grados disponibles';
+          gradoSelect.appendChild(opt);
+          return;
+        }
+        grados.forEach(g => {
+          const opt = document.createElement('option');
+          opt.value = g;
+          opt.textContent = g;
+          gradoSelect.appendChild(opt);
+        });
+      }
+
+      function poblarSeccionesParaGrado(grado) {
+        seccionSelect.innerHTML = '<option value="">-- Seleccionar --</option>';
+        if (!mapaActual || !grado || !mapaActual[grado]) return;
+        const secciones = Array.from(mapaActual[grado]);
+        if (secciones.length === 0) {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = 'No requiere sección';
+          seccionSelect.appendChild(opt);
+          return;
+        }
+        secciones.sort().forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          seccionSelect.appendChild(opt);
+        });
+      }
+
+      // Al cambiar el grado, ajusta las secciones según lo disponible en ese grado
+      gradoSelect.addEventListener('change', function() {
+        poblarSeccionesParaGrado(gradoSelect.value);
+      });
+
+      anioSelect.addEventListener('change', function() {
+        // Limpiar selects
+        resetCombos();
+        const value = anioSelect.value;
+        if (!value) return;
+        fetch(value, { cache: 'no-store' })
+          .then(resp => {
+            if (!resp.ok) throw new Error('No se pudo cargar ' + value + ' (' + resp.status + ')');
+            return resp.text();
+          })
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const cards = Array.from(doc.querySelectorAll('section.card'));
+            // Construir mapa grado -> set(secciones)
+            const mapa = {};
+            cards.forEach(card => {
+              const g = card.dataset.grado;
+              if (!g) return;
+              const s = card.dataset.seccion || null; // null cuando no requiere sección
+              if (!mapa[g]) mapa[g] = new Set();
+              if (s) mapa[g].add(s);
+            });
+            mapaActual = mapa;
+            poblarGradosDesdeMapa(mapaActual);
+            // Secciones se poblarán al elegir un grado
+          })
+          .catch(err => {
+            console.error(err);
+            const msg = (location.protocol === 'file:')
+              ? 'No se pudieron cargar los datos del año. Abre el sitio con un servidor local (http://localhost) para que funcione el selector.'
+              : 'No se pudieron cargar los datos del año seleccionado.';
+            // Intentar con el catálogo de respaldo
+            if (fallbackCatalogo[value]) {
+              const mapa = {};
+              Object.entries(fallbackCatalogo[value]).forEach(([g, arr]) => {
+                mapa[g] = new Set(arr);
+              });
+              mapaActual = mapa;
+              poblarGradosDesdeMapa(mapaActual);
+              // Secciones se poblarán al elegir grado
+            } else {
+              const opt = document.createElement('option');
+              opt.value = '';
+              opt.textContent = msg;
+              gradoSelect.appendChild(opt);
+              const opt2 = document.createElement('option');
+              opt2.value = '';
+              opt2.textContent = '—';
+              seccionSelect.appendChild(opt2);
+            }
+          });
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- Login Box -->
+  <div id="login" class="login-box" aria-labelledby="login-title">
+    <h1 id="login-title" class="logo">Antonia Moreno de Caceres</h1>
+    <h2>Iniciar Sesión</h2>
+    <form onsubmit="login(); return false;">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" placeholder="Usuario" autocomplete="username" required>
+      <label for="clave">Contraseña:</label>
+      <input type="password" id="clave" placeholder="Contraseña" autocomplete="current-password" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Menu Box -->
+  <div id="menu" class="menu-box" style="display:none;" aria-labelledby="menu-title">
+    <h1 id="menu-title" class="logo">Antonia Moreno de Caceres</h1>
+    <h2>Panel de Actas</h2>
+    <form onsubmit="entrar(); return false;">
+      <div class="selector">
+        <label for="anio">Año:</label>
+        <select id="anio" required>
+          <option value="">-- Seleccionar --</option>
+          <option value="2012/2012.html">2012</option>
+          <option value="2011/2011.html">2011</option>
+          <option value="2010/2010.html">2010</option>
+          <option value="2009/2009.html">2009</option>
+          <option value="2008/2008.html">2008</option>
+          <option value="2007/2007.html">2007</option>
+          <option value="2006/2006.html">2006</option>
+          <option value="2005/2005.html">2005</option>
+          <option value="2004/2004.html">2004</option>
+          <option value="2003/2003.html">2003</option>
+          <option value="2002/2002.html">2002</option>
+          <option value="2001/2001.html">2001</option>
+          <option value="2000/2000.html">2000</option>
+          <option value="1999/1999.html">1999</option>
+          <option value="1998/1998.html">1998</option>
+          <option value="1997/1997.html">1997</option>
+          <option value="1996/1996.html">1996</option>
+          <option value="1995/1995.html">1995</option>
+          <option value="1994/1994.html">1994</option>
+          <option value="1993/1993.html">1993</option>
+          <option value="1992/1992.html">1992</option>
+          <option value="1991/1991.html">1991</option>
+          <option value="1990/1990.html">1990</option>
+        </select>
+      </div>
+      <div class="selector">
+        <label for="grado">Grado:</label>
+        <select id="grado" required>
+          <option value="">-- Seleccionar --</option>
+        </select>
+      </div>
+      <div class="selector">
+        <label for="seccion">Sección:</label>
+        <select id="seccion">
+          <option value="">-- Seleccionar --</option>
+        </select>
+      </div>
+      
+      <button type="submit">Ver Acta</button>
+    </form>
+  </div>
+
+  <!-- Recuperación Box -->
+  <div id="recuperacion" class="menu-box" style="display:none;" aria-labelledby="recuperacion-title">
+    <h1 id="recuperacion-title" class="logo">Antonia Moreno de Caceres</h1>
+    <h2>Actas de Recuperación</h2>
+    <form onsubmit="entrarRecuperacion(); return false;">
+      <div class="selector">
+        <label for="anio-rp">Año:</label>
+        <select id="anio-rp" required>
+          <option value="">-- Seleccionar --</option>
+          <option value="1995_rp/1995rp.html">1995</option>
+        </select>
+      </div>
+      
+      <button type="submit">Ver Acta de Recuperación</button>
+    </form>
+  </div>
+
+  <script src="js/funciones.js"></script>
+</body>
+</html>

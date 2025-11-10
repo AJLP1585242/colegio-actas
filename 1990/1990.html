@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Actas 1990 - Colegio Antonia Moreno de Caceres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/estilos.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo">Antonia Moreno de Caceres</h1>
+    <h2>Actas del Año 1990</h2>
+  </header>
+
+  <main id="contenedor-actas">
+    <!-- 1° Grado A -->
+    <section class="acta-card" data-grado="1" data-seccion="A">
+      <h3>1° Grado - Sección A</h3>
+      <div class="imagenes">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752005/CamScanner_07-11-2025_13.02_5_tnwhxe.jpg" alt="Acta 1A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752007/CamScanner_07-11-2025_13.02_6_vdqyzs.jpg" alt="Acta 1A Trasero">
+      </div>
+      <button onclick="generarPDF(this)">Descargar PDF</button>
+    </section>
+
+    <!-- 1° Grado B -->
+    <section class="acta-card" data-grado="1" data-seccion="B">
+      <h3>1° Grado - Sección B</h3>
+      <div class="imagenes">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752863/CamScanner_07-11-2025_13.02_29_zbucdg.jpg" alt="Acta 1B Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752873/CamScanner_07-11-2025_13.02_30_jauxf5.jpg" alt="Acta 1B Trasero">
+      </div>
+      <button onclick="generarPDF(this)">Descargar PDF</button>
+    </section>
+
+    <!-- 2° Grado A -->
+    <section class="acta-card" data-grado="2" data-seccion="A">
+      <h3>2° Grado - Sección A</h3>
+      <div class="imagenes">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752018/CamScanner_07-11-2025_13.02_7_ccbiaz.jpg" alt="Acta 2A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752233/fae14661-4d74-4452-b46f-b14673bd0a7e.png" alt="Acta 2A Trasero">
+      </div>
+      <button onclick="generarPDF(this)">Descargar PDF</button>
+    </section>
+
+    <!-- 3° Grado A -->
+    <section class="acta-card" data-grado="3" data-seccion="A">
+      <h3>3° Grado - Sección A</h3>
+      <div class="imagenes">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762751989/CamScanner_07-11-2025_13.02_3_frqlb5.jpg" alt="Acta 3A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762751990/CamScanner_07-11-2025_13.02_4_yhz6jm.jpg" alt="Acta 3A Trasero">
+      </div>
+      <button onclick="generarPDF(this)">Descargar PDF</button>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../js/funciones.js"></script>
+</body>
+</html>
