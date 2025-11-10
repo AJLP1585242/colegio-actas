@@ -152,7 +152,7 @@
           .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            const cards = Array.from(doc.querySelectorAll('section.card'));
+            const cards = Array.from(doc.querySelectorAll('section.acta-card, section.card'));
             // Construir mapa grado -> set(secciones)
             const mapa = {};
             cards.forEach(card => {
