@@ -213,6 +213,23 @@
   <div id="menu" class="menu-box" style="display:none;" aria-labelledby="menu-title">
     <h1 id="menu-title" class="logo">Antonia Moreno de Caceres</h1>
     <h2>Panel de Actas</h2>
+    
+    <!-- Buscador Inteligente con IA -->
+    <div class="buscador-ia-container">
+      <h3>🤖 Búsqueda Inteligente</h3>
+      <p>Busca estudiantes por nombre. La IA analizará todas las actas automáticamente.</p>
+      <div class="busqueda-ia-form">
+        <input type="text" 
+               id="busqueda-ia-input" 
+               placeholder="Escribe el nombre del estudiante..." 
+               autocomplete="off">
+        <button type="button" onclick="buscarConIA()" class="btn-buscar-ia">
+          🔍 Buscar
+        </button>
+      </div>
+    </div>
+
+    <h2>O busca manualmente</h2>
     <form onsubmit="entrar(); return false;">
       <div class="selector">
         <label for="anio">Año:</label>
@@ -278,5 +295,6 @@
   </div>
 
   <script src="js/funciones.js"></script>
+  <script src="js/buscador-ia.js"></script>
 </body>
 </html>
