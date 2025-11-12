@@ -57,11 +57,25 @@ function checkAuthentication() {
     window.location.href = '../index.html';
     return false;
   } else if (isIndexPage && isAuthenticated) {
-    // Si está en index y ya está autenticado, mostrar el menú directamente
+    // Si está en index y ya está autenticado, verificar si debe mostrar un menú específico
+    const urlParams = new URLSearchParams(window.location.search);
+    const menuParam = urlParams.get('menu');
+    
     const loginDiv = document.getElementById("login");
     if (loginDiv) {
       loginDiv.style.display = "none";
-      mostrarOpciones();
+      
+      // Si tiene parámetro menu=actas, mostrar directamente el selector de actas
+      if (menuParam === 'actas') {
+        limpiarMenus();
+        document.getElementById('menu').style.display = 'block';
+      } else if (menuParam === 'recuperacion') {
+        limpiarMenus();
+        document.getElementById('recuperacion').style.display = 'block';
+      } else {
+        // Mostrar opciones de tipo de actas
+        mostrarOpciones();
+      }
     }
     return true;
   }
@@ -100,6 +114,24 @@ function limpiarMenus() {
 function mostrarMenu(tipo) {
   document.getElementById("opciones").style.display = "none";
   document.getElementById(tipo).style.display = "block";
+}
+
+function volverATipoActas() {
+  // Ocultar los selectores de actas
+  const menuDiv = document.getElementById("menu");
+  const recuperacionDiv = document.getElementById("recuperacion");
+  
+  if (menuDiv) menuDiv.style.display = "none";
+  if (recuperacionDiv) recuperacionDiv.style.display = "none";
+  
+  // Mostrar el selector de tipo de actas
+  const opcionesDiv = document.getElementById("opciones");
+  if (opcionesDiv) {
+    opcionesDiv.style.display = "block";
+  } else {
+    // Si no existe, recrearlo
+    mostrarOpciones();
+  }
 }
 
 function entrarRecuperacion() {
@@ -171,7 +203,7 @@ function addNavigationButtons() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center;';
       navDiv.innerHTML = `
-        <button onclick="window.location.href='../index.html'" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Volver al Menú</button>
+        <button onclick="window.location.href='../index.html?menu=actas'" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Volver al Selector</button>
         <button onclick="logout()" style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">Cerrar Sesión</button>
       `;
       header.appendChild(navDiv);
