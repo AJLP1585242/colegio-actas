@@ -1,0 +1,117 @@
+/**
+ * ============================================
+ * MÓDULO DE GENERACIÓN DE PDF
+ * ============================================
+ * Genera archivos PDF a partir de las imágenes de las actas
+ */
+
+const PDFModule = (function() {
+  'use strict';
+
+  const config = window.APP_CONFIG.PDF;
+
+  /**
+   * Genera un PDF con las imágenes de un acta
+   * @param {string} anio - Año del acta
+   * @param {string} grado - Grado del acta
+   * @param {string} seccion - Sección del acta
+   * @param {string} url1 - URL de la primera imagen
+   * @param {string} url2 - URL de la segunda imagen (opcional)
+   */
+  function generatePDF(anio, grado, seccion, url1, url2) {
+    const { jsPDF } = window.jspdf;
+    
+    if (!jsPDF) {
+      alert('Error: Librería jsPDF no cargada');
+      return;
+    }
+
+    const pdf = new jsPDF(config.ORIENTATION, config.UNIT, config.PAGE_FORMAT);
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    // Título del PDF
+    pdf.setFontSize(14);
+    pdf.text(`${anio} - Grado ${grado} - Sección ${seccion}`, 15, 15);
+
+    loadAndAddImage(pdf, url1, pageWidth, pageHeight, 0, (pdf, firstImageHeight) => {
+      if (url2) {
+        // Si hay segunda imagen, agregarla
+        loadAndAddImage(pdf, url2, pageWidth, pageHeight, firstImageHeight, (pdf) => {
+          savePDF(pdf, anio, grado, seccion);
+        });
+      } else {
+        // Solo una imagen
+        savePDF(pdf, anio, grado, seccion);
+      }
+    });
+  }
+
+  /**
+   * Carga y agrega una imagen al PDF
+   * @param {jsPDF} pdf - Instancia de jsPDF
+   * @param {string} url - URL de la imagen
+   * @param {number} pageWidth - Ancho de la página
+   * @param {number} pageHeight - Alto de la página
+   * @param {number} previousHeight - Alto de imágenes previas
+   * @param {Function} callback - Función a ejecutar cuando termine
+   */
+  function loadAndAddImage(pdf, url, pageWidth, pageHeight, previousHeight, callback) {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = url;
+    
+    img.onload = function() {
+      const imgWidth = pageWidth - (config.MARGIN * 2);
+      const ratio = img.width / img.height;
+      let imgHeight = imgWidth / ratio;
+
+      // Ajustar si excede el espacio disponible
+      const availableSpace = pageHeight - 25 - config.MARGIN - previousHeight;
+      if (imgHeight > availableSpace) {
+        const factor = availableSpace / imgHeight;
+        imgHeight *= factor;
+      }
+
+      // Usar canvas para asegurar orientación correcta
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imgData = canvas.toDataURL(`image/${config.IMAGE_FORMAT}`, config.IMAGE_QUALITY);
+      
+      // Posición Y: después del título y de imágenes previas
+      const yPosition = 25 + previousHeight + (previousHeight > 0 ? config.MARGIN : 0);
+      pdf.addImage(imgData, config.IMAGE_FORMAT, config.MARGIN, yPosition, imgWidth, imgHeight);
+      
+      if (callback) callback(pdf, imgHeight);
+    };
+
+    img.onerror = function() {
+      console.error('Error cargando imagen:', url);
+      alert('Error al cargar la imagen. Verifica la conexión.');
+    };
+  }
+
+  /**
+   * Guarda el PDF generado
+   * @param {jsPDF} pdf - Instancia de jsPDF
+   * @param {string} anio - Año del acta
+   * @param {string} grado - Grado del acta
+   * @param {string} seccion - Sección del acta
+   */
+  function savePDF(pdf, anio, grado, seccion) {
+    const filename = `acta_${anio}_${grado}${seccion}.pdf`;
+    pdf.save(filename);
+  }
+
+  // API pública del módulo
+  return {
+    generatePDF
+  };
+
+})();
+
+// Exponer función global para compatibilidad con HTML onclick
+window.generarPDF = PDFModule.generatePDF;
