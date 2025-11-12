@@ -1,43 +1,83 @@
-# 📚 Sistema de Actas Escolares
+# Sistema de Actas - Colegio Antonia Moreno de Caceres# 📚 Sistema de Actas Escolares
+
 ## Antonia Moreno de Caceres
+
+Sistema web para consultar actas escolares digitalizadas (1990-2012).
 
 Sistema web para consulta de actas escolares desde 1990 hasta 2012.
 
+## 🚀 Acceso Rápido
+
 ---
 
-## 🚀 Inicio Rápido
+- **Demo en vivo**: [https://ajlp1585242.github.io/colegio-actas/](https://ajlp1585242.github.io/colegio-actas/)
 
-**Acceso:**
+- **Credenciales**: usuario: `admin` / contraseña: `1234`## 🚀 Inicio Rápido
+
+
+
+## 📚 Documentación Completa**Acceso:**
+
 - Usuario: `admin`
-- Contraseña: `1234`
+
+Toda la documentación técnica se encuentra en la carpeta `docs/`:- Contraseña: `1234`
+
 - URL: https://ajlp1585242.github.io/colegio-actas/
 
-**📖 Documentación:**
-- **Guía de uso:** Ver `GUIA-RAPIDA.md`
+- **[Documentación Técnica Completa](docs/DOCUMENTACION.md)** - Arquitectura, módulos, configuración
+
+- **[Guía Rápida](docs/GUIA-RAPIDA.md)** - Instrucciones para desarrolladores**📖 Documentación:**
+
+- **[Estructura del Proyecto](docs/ESTRUCTURA.md)** - Organización de archivos- **Guía de uso:** Ver `GUIA-RAPIDA.md`
+
 - **Documentación técnica:** Ver `DOCUMENTACION.md`
-- **Estructura:** Ver `ESTRUCTURA.md`
 
----
+## 📂 Estructura Simplificada- **Estructura:** Ver `ESTRUCTURA.md`
 
-## ✨ Características
-- 🔐 Sistema de autenticación con sesión
-- 📱 Diseño responsive (móvil y desktop)
-- 🔍 Búsqueda por año, grado y sección
-- 📄 Generación de PDFs
-- 🔎 Zoom de imágenes con controles
-- ☁️ Imágenes alojadas en Cloudinary
-- 🧭 Navegación por niveles intuitiva
+
+
+```---
+
+colegio/
+
+├── index.html              # Punto de entrada## ✨ Características
+
+├── actas/- 🔐 Sistema de autenticación con sesión
+
+│   ├── normales/          # Actas 1990-2012 (23 años)- 📱 Diseño responsive (móvil y desktop)
+
+│   └── recuperacion/      # Actas de recuperación- 🔍 Búsqueda por año, grado y sección
+
+├── css/                   # Estilos- 📄 Generación de PDFs
+
+├── js/                    # Módulos JavaScript- 🔎 Zoom de imágenes con controles
+
+└── docs/                  # Documentación técnica- ☁️ Imágenes alojadas en Cloudinary
+
+```- 🧭 Navegación por niveles intuitiva
+
 - ⚙️ Configuración centralizada
 
+## 🛠️ Tecnologías
+
 ---
 
-## 📂 Organización
+- HTML5 + CSS3 + JavaScript ES6+
 
-```
+- jsPDF para generación de PDFs## 📂 Organización
+
+- Cloudinary para almacenamiento de imágenes
+
+- GitHub Pages para deployment```
+
 colegio/
-├── index.html              # Página principal
+
+## 📖 Para más información├── index.html              # Página principal
+
 ├── css/estilos.css         # Estilos
-├── js/                     # Módulos JavaScript
+
+Consulta la [documentación completa](docs/DOCUMENTACION.md) para detalles técnicos, instrucciones de mantenimiento y guías de desarrollo.├── js/                     # Módulos JavaScript
+
 │   ├── config.js          # ⚙️ Configuración (cambiar contraseña aquí)
 │   ├── auth.js            # 🔐 Autenticación
 │   ├── navigation.js      # 🧭 Navegación

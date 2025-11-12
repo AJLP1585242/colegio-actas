@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Actas 2000</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../../css/estilos.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="logo">Antonia Moreno de Caceres</h1>
+    <h2>Actas del Año 2000</h2>
+  </header>
+
+  <main>
+    <!-- Grado 1, Sección A -->
+    <section class="card" data-grado="1" data-seccion="A">
+      <p><b>2000 - Grado 1 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752324/CamScanner_07-11-2025_13.02_9_tabl1p.jpg" alt="Acta 2000 Grado 1A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752326/CamScanner_07-11-2025_13.02_10_ztejne.jpg" alt="Acta 2000 Grado 1A 2">
+      <button onclick="generarPDF('2000','1','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752324/CamScanner_07-11-2025_13.02_9_tabl1p.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752326/CamScanner_07-11-2025_13.02_10_ztejne.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 1, Sección C -->
+    <section class="card" data-grado="1" data-seccion="C">
+      <p><b>2000 - Grado 1 - Sección C</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752338/CamScanner_07-11-2025_13.02_11_lfv0qu.jpg" alt="Acta 2000 Grado 1C 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752341/CamScanner_07-11-2025_13.02_12_bwyzke.jpg" alt="Acta 2000 Grado 1C 2">
+      <button onclick="generarPDF('2000','1','C','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752338/CamScanner_07-11-2025_13.02_11_lfv0qu.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752341/CamScanner_07-11-2025_13.02_12_bwyzke.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 2, Sección A -->
+    <section class="card" data-grado="2" data-seccion="A">
+      <p><b>2000 - Grado 2 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752375/CamScanner_07-11-2025_13.02_17_uerf5h.jpg" alt="Acta 2000 Grado 2A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752378/CamScanner_07-11-2025_13.02_18_t3cba4.jpg" alt="Acta 2000 Grado 2A 2">
+      <button onclick="generarPDF('2000','2','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752375/CamScanner_07-11-2025_13.02_17_uerf5h.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752378/CamScanner_07-11-2025_13.02_18_t3cba4.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 3, Sección B -->
+    <section class="card" data-grado="3" data-seccion="B">
+      <p><b>2000 - Grado 3 - Sección B</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752363/CamScanner_07-11-2025_13.02_15_lwt76w.jpg" alt="Acta 2000 Grado 3B 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752366/CamScanner_07-11-2025_13.02_16_dm0cow.jpg" alt="Acta 2000 Grado 3B 2">
+      <button onclick="generarPDF('2000','3','B','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752363/CamScanner_07-11-2025_13.02_15_lwt76w.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752366/CamScanner_07-11-2025_13.02_16_dm0cow.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 4, Sección A -->
+    <section class="card" data-grado="4" data-seccion="A">
+      <p><b>2000 - Grado 4 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752351/CamScanner_07-11-2025_13.02_13_afrayo.jpg" alt="Acta 2000 Grado 4A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752354/CamScanner_07-11-2025_13.02_14_a5eguz.jpg" alt="Acta 2000 Grado 4A 2">
+      <button onclick="generarPDF('2000','4','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752351/CamScanner_07-11-2025_13.02_13_afrayo.jpg','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762752354/CamScanner_07-11-2025_13.02_14_a5eguz.jpg')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 4, Sección C -->
+    <section class="card" data-grado="4" data-seccion="C">
+      <p><b>2000 - Grado 4 - Sección C</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140738/b3ae5b38-9f35-44c9-ae90-70a314c58844.png" alt="Acta 2000 Grado 4C 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140743/c9cd920b-d029-49fc-ad03-2923fa3bc543.png" alt="Acta 2000 Grado 4C 2">
+      <button onclick="generarPDF('2000','4','C','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140738/b3ae5b38-9f35-44c9-ae90-70a314c58844.png','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140743/c9cd920b-d029-49fc-ad03-2923fa3bc543.png')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 5, Sección A -->
+    <section class="card" data-grado="5" data-seccion="A">
+      <p><b>2000 - Grado 5 - Sección A</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140760/3fc44a3f-9d03-4c85-b41a-4c2daced3749.png" alt="Acta 2000 Grado 5A 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140777/9526576c-a3a4-48c2-b014-ae7ee5a2436b.png" alt="Acta 2000 Grado 5A 2">
+      <button onclick="generarPDF('2000','5','A','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140760/3fc44a3f-9d03-4c85-b41a-4c2daced3749.png','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140777/9526576c-a3a4-48c2-b014-ae7ee5a2436b.png')">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 5, Sección B -->
+    <section class="card" data-grado="5" data-seccion="B">
+      <p><b>2000 - Grado 5 - Sección B</b></p>
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140718/e4cd620c-838c-4181-8a0b-0ffc0622e3e5.png" alt="Acta 2000 Grado 5B 1">
+      <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140722/d7b6c997-3e11-4a98-9954-4edd4932a065.png" alt="Acta 2000 Grado 5B 2">
+      <button onclick="generarPDF('2000','5','B','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140718/e4cd620c-838c-4181-8a0b-0ffc0622e3e5.png','https://res.cloudinary.com/dgs18wmuc/image/upload/v1762140722/d7b6c997-3e11-4a98-9954-4edd4932a065.png')">Descargar PDF</button>
+    </section>
+  </main>
+
+  <script src="../../../js/funciones.js"></script>
+</body>
+</html>

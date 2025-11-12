@@ -18,74 +18,74 @@
       // Catálogo de respaldo por si falla la carga del año (sin necesidad de servidor)
       // Para grados sin secciones en la página del año, usa [] para no forzar parámetro de sección.
      const fallbackCatalogo = {
-  '2012/2012.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
-  '2011/2011.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
-  '2010/2010.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B'], '5': ['A','B','C'] },
-  '2009/2009.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','C'] },
-  '2008/2008.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','C'], '5': ['A','B','C'] },
-  '2007/2007.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B'] },
-  '2006/2006.html': { '1': ['A','B','C'], '2': ['A'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B'] },
-  '2005/2005.html': { '1': ['A','B','C','D'], '2': ['A','C'], '3': ['A','B','C'], '4': ['B','C'], '5': ['A'] },
-  '2004/2004.html': { '1': ['A','B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A'], '5': ['A','C'] },
-  '2003/2003.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A'], '4': ['A','B','C'], '5': ['A','B'] },
-  '2002/2002.html': { '1': ['A','B','C','D'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
-  '2001/2001.html': { '1': ['A','C'], '2': ['A','C'], '3': ['A','C'], '4': ['A','B','C'] },
-  '2000/2000.html': { '1': ['A','C'], '2': ['A'], '3': ['B'], '4': ['A','C'], '5': ['A','B'] },
-  '1999/1999.html': { 
+  'actas/normales/2012/2012.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  'actas/normales/2011/2011.html': { '1': ['B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  'actas/normales/2010/2010.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B'], '5': ['A','B','C'] },
+  'actas/normales/2009/2009.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','C'] },
+  'actas/normales/2008/2008.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','B','C'], '4': ['A','C'], '5': ['A','B','C'] },
+  'actas/normales/2007/2007.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B'] },
+  'actas/normales/2006/2006.html': { '1': ['A','B','C'], '2': ['A'], '3': ['A','B','C'], '4': ['A','B','C'], '5': ['A','B'] },
+  'actas/normales/2005/2005.html': { '1': ['A','B','C','D'], '2': ['A','C'], '3': ['A','B','C'], '4': ['B','C'], '5': ['A'] },
+  'actas/normales/2004/2004.html': { '1': ['A','B','C'], '2': ['B','C'], '3': ['A','B','C'], '4': ['A'], '5': ['A','C'] },
+  'actas/normales/2003/2003.html': { '1': ['A','B','C'], '2': ['A','B','C'], '3': ['A'], '4': ['A','B','C'], '5': ['A','B'] },
+  'actas/normales/2002/2002.html': { '1': ['A','B','C','D'], '2': ['A','B','C'], '3': ['A','C'], '4': ['A','B','C'], '5': ['A','B','C'] },
+  'actas/normales/2001/2001.html': { '1': ['A','C'], '2': ['A','C'], '3': ['A','C'], '4': ['A','B','C'] },
+  'actas/normales/2000/2000.html': { '1': ['A','C'], '2': ['A'], '3': ['B'], '4': ['A','C'], '5': ['A','B'] },
+  'actas/normales/1999/1999.html': { 
     '1': ['A','C'], 
     '2': ['A','B'], 
     '3': ['A','C'], 
     '4': ['A','B','C'], 
     '5': ['A']
   },
-  '1998/1998.html': {
+  'actas/normales/1998/1998.html': {
     '1': ['A'],
     '3': ['A','B','C'],
     '4': ['A','B'],
     '5': ['A','B']
   },
-  '1997/1997.html': { 
+  'actas/normales/1997/1997.html': { 
     '1': ['A','C'],
     '2': ['A','B','C'],
     '3': ['A','B'],
     '4': ['A','B'],
     '5': ['A','B']
   },
-  '1996/1996.html': {
+  'actas/normales/1996/1996.html': {
     '1': ['A','B','C'],
     '2': ['A','B','POSTERGACION'],
     '3': ['A','B'],
     '4': ['A','B'],
     '5': ['UNICA']
   },
-  '1995/1995.html': {
+  'actas/normales/1995/1995.html': {
     '1': ['A'],
     '2': ['A','B'],
     '3': ['A'],
     '4': ['U'],
     '5': ['U']
   },
-  '1994/1994.html': {
+  'actas/normales/1994/1994.html': {
     '1': ['B'],
     '2': ['A','B']
   },
-  '1993/1993.html': { 
+  'actas/normales/1993/1993.html': { 
     '1': ['A','B'],
     '2': ['A','B'],
     '3': ['A'],
     '4': ['A'],
     '5': ['A']
   },
-  '1992/1992.html': {
+  'actas/normales/1992/1992.html': {
     '1': ['A','B'],
     '5': ['U']
   },
-  '1990/1990.html': {
+  'actas/normales/1990/1990.html': {
     '1': ['A','B'],
     '2': ['A'],
     '3': ['A']
   },
-  '1991/1991.html': {
+  'actas/normales/1991/1991.html': {
     '1': ['A','B'],
     '2': ['A'],
     '3': ['A']
@@ -218,29 +218,29 @@
         <label for="anio">Año:</label>
         <select id="anio" required>
           <option value="">-- Seleccionar --</option>
-          <option value="2012/2012.html">2012</option>
-          <option value="2011/2011.html">2011</option>
-          <option value="2010/2010.html">2010</option>
-          <option value="2009/2009.html">2009</option>
-          <option value="2008/2008.html">2008</option>
-          <option value="2007/2007.html">2007</option>
-          <option value="2006/2006.html">2006</option>
-          <option value="2005/2005.html">2005</option>
-          <option value="2004/2004.html">2004</option>
-          <option value="2003/2003.html">2003</option>
-          <option value="2002/2002.html">2002</option>
-          <option value="2001/2001.html">2001</option>
-          <option value="2000/2000.html">2000</option>
-          <option value="1999/1999.html">1999</option>
-          <option value="1998/1998.html">1998</option>
-          <option value="1997/1997.html">1997</option>
-          <option value="1996/1996.html">1996</option>
-          <option value="1995/1995.html">1995</option>
-          <option value="1994/1994.html">1994</option>
-          <option value="1993/1993.html">1993</option>
-          <option value="1992/1992.html">1992</option>
-          <option value="1991/1991.html">1991</option>
-          <option value="1990/1990.html">1990</option>
+          <option value="actas/normales/2012/2012.html">2012</option>
+          <option value="actas/normales/2011/2011.html">2011</option>
+          <option value="actas/normales/2010/2010.html">2010</option>
+          <option value="actas/normales/2009/2009.html">2009</option>
+          <option value="actas/normales/2008/2008.html">2008</option>
+          <option value="actas/normales/2007/2007.html">2007</option>
+          <option value="actas/normales/2006/2006.html">2006</option>
+          <option value="actas/normales/2005/2005.html">2005</option>
+          <option value="actas/normales/2004/2004.html">2004</option>
+          <option value="actas/normales/2003/2003.html">2003</option>
+          <option value="actas/normales/2002/2002.html">2002</option>
+          <option value="actas/normales/2001/2001.html">2001</option>
+          <option value="actas/normales/2000/2000.html">2000</option>
+          <option value="actas/normales/1999/1999.html">1999</option>
+          <option value="actas/normales/1998/1998.html">1998</option>
+          <option value="actas/normales/1997/1997.html">1997</option>
+          <option value="actas/normales/1996/1996.html">1996</option>
+          <option value="actas/normales/1995/1995.html">1995</option>
+          <option value="actas/normales/1994/1994.html">1994</option>
+          <option value="actas/normales/1993/1993.html">1993</option>
+          <option value="actas/normales/1992/1992.html">1992</option>
+          <option value="actas/normales/1991/1991.html">1991</option>
+          <option value="actas/normales/1990/1990.html">1990</option>
         </select>
       </div>
       <div class="selector">
@@ -270,7 +270,7 @@
         <label for="anio-rp">Año:</label>
         <select id="anio-rp" required>
           <option value="">-- Seleccionar --</option>
-          <option value="1995_rp/1995rp.html">1995</option>
+          <option value="actas/recuperacion/1995_rp/1995rp.html">1995</option>
         </select>
       </div>
       
