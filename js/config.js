@@ -8,6 +8,7 @@
 
 const CONFIG = {
   // Credenciales de acceso
+  // MODIFICAR AQUÍ para cambiar usuario y contraseña
   AUTH: {
     USERNAME: 'admin',
     PASSWORD: '1234',
