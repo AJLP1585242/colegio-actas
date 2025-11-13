@@ -136,9 +136,13 @@ const NavigationModule = (function() {
     const isYearPage = config.YEAR_PAGE_PATTERN.test(path) || 
                        config.RECOVERY_PAGE_PATTERN.test(path);
     
+    console.log('Verificando página de año...', { path, isYearPage });
+    
     if (!isYearPage) return;
     
     const header = document.querySelector('header');
+    console.log('Header encontrado:', header);
+    
     if (header && !header.querySelector('.navigation-buttons')) {
       const navDiv = document.createElement('div');
       navDiv.className = 'navigation-buttons';
@@ -146,10 +150,11 @@ const NavigationModule = (function() {
       
       // Construir URL completa usando origin + path base
       const pathParts = window.location.pathname.split('/');
-      // Encontrar todo hasta /actas/ y construir la ruta base
       const actasIndex = pathParts.indexOf('actas');
       const baseParts = actasIndex > 0 ? pathParts.slice(0, actasIndex) : pathParts.slice(0, -2);
       const indexUrl = window.location.origin + baseParts.join('/') + '/index.html?menu=actas';
+      
+      console.log('URL construida:', indexUrl);
       
       navDiv.innerHTML = `
         <button onclick="window.location.href='${indexUrl}'" 
@@ -162,6 +167,7 @@ const NavigationModule = (function() {
         </button>
       `;
       header.appendChild(navDiv);
+      console.log('Botones agregados al header');
     }
   }
 
