@@ -13,14 +13,14 @@
    * Inicializa la aplicación cuando el DOM esté listo
    */
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Iniciando Sistema de Actas...');
+    console.log('Iniciando Sistema de Actas...');
     
     // 1. Verificar autenticación
     const isAuthenticated = AuthModule.checkAuthentication();
     
     // 2. Detectar tipo de página
     const pageType = detectPageType();
-    console.log(`📄 Tipo de página: ${pageType}`);
+    console.log(`Tipo de página: ${pageType}`);
     
     // 3. Inicializar módulos según el tipo de página
     if (pageType === 'year' || pageType === 'recovery') {
@@ -29,7 +29,7 @@
       initIndexPage();
     }
     
-    console.log('✅ Sistema iniciado correctamente');
+    console.log('Sistema iniciado correctamente');
   });
 
   /**
@@ -49,7 +49,7 @@
    * Inicializa módulos para páginas de años
    */
   function initYearPage() {
-    console.log('🔧 Inicializando página de año...');
+    console.log('Inicializando página de año...');
     
     // Agregar botones de navegación
     NavigationModule.addYearPageButtons();
@@ -65,7 +65,7 @@
    * Inicializa módulos para la página index
    */
   function initIndexPage() {
-    console.log('🔧 Inicializando página index...');
+    console.log('Inicializando página index...');
     // La autenticación ya fue verificada en AuthModule.checkAuthentication()
   }
 
@@ -73,7 +73,7 @@
    * Manejo global de errores
    */
   window.addEventListener('error', function(event) {
-    console.error('❌ Error en la aplicación:', event.error);
+    console.error('Error en la aplicación:', event.error);
   });
 
   /**
@@ -99,6 +99,6 @@
     }
   };
 
-  console.log(`📦 ${window.APP_INFO.name} v${window.APP_INFO.version}`);
+  console.log(`${window.APP_INFO.name} v${window.APP_INFO.version}`);
 
 })();
