@@ -27,13 +27,13 @@ const NavigationModule = (function() {
       <h2>Seleccionar Tipo de Actas</h2>
       <div style="display: flex; flex-direction: column; gap: 10px; margin: 20px 0;">
         <button onclick="NavigationModule.showMenu('menu')" style="padding: 15px; font-size: 16px;">
-          📚 Actas Normales
+          Actas Normales
         </button>
         <button onclick="NavigationModule.showMenu('recuperacion')" style="padding: 15px; font-size: 16px;">
-          📝 Actas de Recuperación
+          Actas de Recuperación
         </button>
         <button onclick="logout()" style="padding: 10px; font-size: 14px; background-color: #dc3545; color: white; margin-top: 10px;">
-          🚪 Cerrar Sesión
+          Cerrar Sesión
         </button>
       </div>
     `;
