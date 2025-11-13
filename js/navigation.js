@@ -144,13 +144,13 @@ const NavigationModule = (function() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
       navDiv.innerHTML = `
-        <button onclick="window.location.href='../index.html?menu=actas'" 
+        <button onclick="window.location.href='../../../index.html?menu=actas'" 
                 style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          ← Volver al Selector
+          Volver al Selector
         </button>
         <button onclick="logout()" 
                 style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          🚪 Cerrar Sesión
+          Cerrar Sesión
         </button>
       `;
       header.appendChild(navDiv);
