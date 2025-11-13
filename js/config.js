@@ -17,8 +17,8 @@ const CONFIG = {
 
   // Rutas del sistema
   PATHS: {
-    INDEX: '../index.html',
-    LOGIN_REDIRECT: '../index.html'
+    INDEX: '../../../index.html',
+    LOGIN_REDIRECT: '../../../index.html'
   },
 
   // Configuración de PDF

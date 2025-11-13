@@ -143,8 +143,12 @@ const NavigationModule = (function() {
       const navDiv = document.createElement('div');
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
+      
+      // Calcular ruta relativa al index.html desde páginas de años
+      const pathToIndex = window.location.pathname.includes('/actas/') ? '../../../index.html' : '../index.html';
+      
       navDiv.innerHTML = `
-        <button onclick="window.location.href='../../../index.html?menu=actas'" 
+        <button onclick="window.location.href='${pathToIndex}?menu=actas'" 
                 style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Volver al Selector
         </button>
