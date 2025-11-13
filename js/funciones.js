@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
     checkAuthentication();
   }
   
-  // Agregar botones de navegación si estamos en una página de año
-  addNavigationButtons();
+  // Los botones de navegación ahora se agregan desde navigation.js (NavigationModule.addYearPageButtons)
+  // addNavigationButtons(); // COMENTADO - usar módulo navigation.js
   
   // Inicializar controles de zoom para imágenes
   initImageZoom();
@@ -192,6 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Función para agregar botones de navegación automáticamente
+// NOTA: Esta función fue reemplazada por NavigationModule.addYearPageButtons() en navigation.js
+// No se debe usar más para evitar conflictos de rutas
+/*
 function addNavigationButtons() {
   const path = window.location.pathname.replace(/\\/g, '/');
   const isYearPage = /\/\d{4}\/\d{4}\.html$/.test(path) || /\/\d{4}_rp\/\d{4}rp\.html$/.test(path);
@@ -210,6 +213,7 @@ function addNavigationButtons() {
     }
   }
 }
+*/
 
 // --- Sistema de zoom con controles ---
 function initImageZoom() {
