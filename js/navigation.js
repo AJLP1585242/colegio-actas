@@ -148,13 +148,20 @@ const NavigationModule = (function() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
       
-      // Construir URL completa usando origin + path base
-      const pathParts = window.location.pathname.split('/');
+      // Construir URL base (hasta antes de /actas/)
+      const pathParts = window.location.pathname.split('/').filter(p => p);
       const actasIndex = pathParts.indexOf('actas');
-      const baseParts = actasIndex > 0 ? pathParts.slice(0, actasIndex) : pathParts.slice(0, -2);
-      const indexUrl = window.location.origin + baseParts.join('/') + '/index.html?menu=actas';
+      
+      let basePath = '';
+      if (actasIndex > 0) {
+        // Tomar solo las partes antes de 'actas'
+        basePath = '/' + pathParts.slice(0, actasIndex).join('/');
+      }
+      
+      const indexUrl = window.location.origin + basePath + '/index.html?menu=actas';
       
       console.log('URL construida:', indexUrl);
+      console.log('Partes del path:', { pathParts, actasIndex, basePath });
       
       navDiv.innerHTML = `
         <button onclick="window.location.href='${indexUrl}'" 
