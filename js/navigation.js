@@ -144,11 +144,14 @@ const NavigationModule = (function() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
       
-      // Calcular ruta relativa al index.html desde páginas de años
-      const pathToIndex = window.location.pathname.includes('/actas/') ? '../../../index.html' : '../index.html';
+      // Obtener la base del repositorio (ej: /colegio-actas/ o /)
+      const pathParts = window.location.pathname.split('/');
+      const repoIndex = pathParts.findIndex(part => part === 'actas');
+      const basePath = repoIndex > 0 ? pathParts.slice(0, repoIndex).join('/') : '';
+      const indexPath = basePath + '/index.html?menu=actas';
       
       navDiv.innerHTML = `
-        <button onclick="window.location.href='${pathToIndex}?menu=actas'" 
+        <button onclick="window.location.href='${indexPath}'" 
                 style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Volver al Selector
         </button>
