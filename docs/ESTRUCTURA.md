@@ -11,10 +11,10 @@ ESTRUCTURA ACTUAL (Raíz del proyecto):
 
 colegio/
 │
-├── 📄 index.html                    # Página principal (login y menús)
-├── 📄 README.md                     # Documentación principal
+├── index.html                       # Página principal (login y menús)
+├── README.md                        # Documentación principal
 │
-├── 📁 actas/                        # Archivos de actas organizados
+├── actas/                           # Archivos de actas organizados
 │   ├── normales/                    # Actas normales por año
 │   │   ├── 1990/ hasta 2012/       # 23 carpetas de años
 │   │   │   └── YYYY.html           # HTML con actas del año
@@ -23,20 +23,20 @@ colegio/
 │       └── 1995_rp/
 │           └── 1995rp.html
 │
-├── 📁 css/                          # Estilos del sistema
+├── css/                             # Estilos del sistema
 │   └── estilos.css                  # Archivo único de estilos
 │
-├── 📁 js/                           # Módulos JavaScript
-│   ├── config.js                    # ⚙️  Configuración (AQUÍ MODIFICAR CONTRASEÑA)
-│   ├── auth.js                      # 🔐 Autenticación
-│   ├── navigation.js                # 🧭 Navegación
-│   ├── filter.js                    # 🔍 Filtrado
-│   ├── zoom.js                      # 🔎 Zoom
-│   ├── pdf.js                       # 📄 PDFs
-│   ├── app.js                       # 🚀 Inicializador
-│   └── funciones.js                 # ⚠️  Legacy (mantener por compatibilidad)
+├── js/                              # Módulos JavaScript
+│   ├── config.js                    # Configuración (AQUÍ MODIFICAR CONTRASEÑA)
+│   ├── auth.js                      # Autenticación
+│   ├── navigation.js                # Navegación
+│   ├── filter.js                    # Filtrado
+│   ├── zoom.js                      # Zoom
+│   ├── pdf.js                       # PDFs
+│   ├── app.js                       # Inicializador
+│   └── funciones.js                 # Legacy (mantener por compatibilidad)
 │
-└── 📁 docs/                         # Documentación técnica
+└── docs/                            # Documentación técnica
     ├── DOCUMENTACION.md             # Guía técnica completa
     ├── GUIA-RAPIDA.md               # Referencia rápida
     ├── ESTRUCTURA.md                # Este archivo
@@ -45,11 +45,11 @@ colegio/
 
 VENTAJAS DE ESTA ESTRUCTURA:
 =============================
-✅ Organización profesional y escalable
-✅ Separación clara entre actas normales y recuperación
-✅ Documentación centralizada en docs/
-✅ Fácil mantenimiento y modificación
-✅ Compatible con GitHub Pages
+- Organización profesional y escalable
+- Separación clara entre actas normales y recuperación
+- Documentación centralizada en docs/
+- Fácil mantenimiento y modificación
+- Compatible con GitHub Pages
 
 
 MODIFICACIONES COMUNES:
@@ -86,10 +86,10 @@ FLUJO DE NAVEGACIÓN:
 BUENAS PRÁCTICAS:
 =================
 
-📌 NO mover archivos sin actualizar rutas
-📌 NO modificar estructura de carpetas de actas/
-📌 SÍ modificar solo js/config.js para configuración
-📌 SÍ mantener backup antes de cambios grandes
+- NO mover archivos sin actualizar rutas
+- NO modificar estructura de carpetas de actas/
+- SÍ modificar solo js/config.js para configuración
+- SÍ mantener backup antes de cambios grandes
 
 
 ARCHIVOS CRÍTICOS (no eliminar):
