@@ -144,14 +144,15 @@ const NavigationModule = (function() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
       
-      // Obtener la base del repositorio (ej: /colegio-actas/ o /)
+      // Construir URL completa usando origin + path base
       const pathParts = window.location.pathname.split('/');
-      const repoIndex = pathParts.findIndex(part => part === 'actas');
-      const basePath = repoIndex > 0 ? pathParts.slice(0, repoIndex).join('/') : '';
-      const indexPath = basePath + '/index.html?menu=actas';
+      // Encontrar todo hasta /actas/ y construir la ruta base
+      const actasIndex = pathParts.indexOf('actas');
+      const baseParts = actasIndex > 0 ? pathParts.slice(0, actasIndex) : pathParts.slice(0, -2);
+      const indexUrl = window.location.origin + baseParts.join('/') + '/index.html?menu=actas';
       
       navDiv.innerHTML = `
-        <button onclick="window.location.href='${indexPath}'" 
+        <button onclick="window.location.href='${indexUrl}'" 
                 style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Volver al Selector
         </button>
