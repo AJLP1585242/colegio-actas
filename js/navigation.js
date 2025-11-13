@@ -148,20 +148,21 @@ const NavigationModule = (function() {
       navDiv.className = 'navigation-buttons';
       navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
       
-      // Construir URL base (hasta antes de /actas/)
-      const pathParts = window.location.pathname.split('/').filter(p => p);
-      const actasIndex = pathParts.indexOf('actas');
+      // Encontrar la ruta base cortando en /actas/
+      let indexUrl;
+      const currentPath = window.location.pathname;
       
-      let basePath = '';
-      if (actasIndex > 0) {
-        // Tomar solo las partes antes de 'actas'
-        basePath = '/' + pathParts.slice(0, actasIndex).join('/');
+      if (currentPath.includes('/actas/')) {
+        // Cortar todo desde /actas/ en adelante
+        const baseUrl = currentPath.substring(0, currentPath.indexOf('/actas/'));
+        indexUrl = window.location.origin + baseUrl + '/index.html?menu=actas';
+      } else {
+        // Fallback: usar ruta relativa
+        indexUrl = '../../../index.html?menu=actas';
       }
       
-      const indexUrl = window.location.origin + basePath + '/index.html?menu=actas';
-      
       console.log('URL construida:', indexUrl);
-      console.log('Partes del path:', { pathParts, actasIndex, basePath });
+      console.log('Current path:', currentPath);
       
       navDiv.innerHTML = `
         <button onclick="window.location.href='${indexUrl}'" 
