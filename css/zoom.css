@@ -1,0 +1,72 @@
+/* =================================
+   ZOOM.CSS - Funcionalidad de zoom
+   ================================= */
+
+/* --- Contenedor con zoom --- */
+.zoom-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.zoom-image {
+  transition: transform 0.2s ease;
+  transform-origin: center;
+}
+
+/* --- Controles de zoom --- */
+.zoom-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  display: flex;
+  gap: 5px;
+}
+
+.zoom-btn {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 32, 39, 0.9);
+  color: #34d399;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  min-width: 35px;
+  min-height: 35px;
+}
+
+.zoom-btn:hover {
+  background: rgba(52, 211, 153, 0.2);
+  transform: scale(1.1);
+}
+
+.zoom-btn:active {
+  transform: scale(0.95);
+  background: rgba(52, 211, 153, 0.3);
+}
+
+.zoom-level {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(15, 32, 39, 0.9);
+  color: #ffffff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}

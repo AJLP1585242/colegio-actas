@@ -1,13 +1,24 @@
 /* ========================================
-   ESTILOS.CSS - Sistema de Actas del Colegio
+   ESTILOS.CSS - Archivo principal (DEPRECATED)
    
-   TABLA DE CONTENIDOS:
-   1. Base - Reset y configuración general
-   2. Layout - Estructura y contenedores
-   3. Components - Componentes reutilizables
-   4. Zoom - Funcionalidad de zoom
-   5. Animations - Animaciones y transiciones
-   6. Responsive - Media queries
+   NOTA: Este archivo ya no se usa directamente.
+   Los estilos están separados en módulos individuales
+   que se cargan desde el HTML:
+   
+   - base.css - Reset y configuración general
+   - layout.css - Estructura y contenedores
+   - components.css - Componentes reutilizables
+   - zoom.css - Funcionalidad de zoom
+   - animations.css - Animaciones y transiciones
+   - responsive.css - Media queries
+   
+   Para usarlos, incluye en tu HTML:
+   <link rel="stylesheet" href="css/base.css">
+   <link rel="stylesheet" href="css/layout.css">
+   <link rel="stylesheet" href="css/components.css">
+   <link rel="stylesheet" href="css/zoom.css">
+   <link rel="stylesheet" href="css/animations.css">
+   <link rel="stylesheet" href="css/responsive.css">
    ======================================== */
 
 /* =================================

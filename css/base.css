@@ -1,0 +1,79 @@
+/* =================================
+   BASE.CSS - Estilos base y reset
+   ================================= */
+
+/* --- Reset y configuración general --- */
+* {
+  -webkit-tap-highlight-color: rgba(52, 211, 153, 0.2);
+  -webkit-touch-callout: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 35%, #2c5530 100%);
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* --- Para páginas de años (con header fijo) --- */
+body:has(header) {
+  display: block;
+  padding-top: 180px;
+}
+
+/* --- Para página principal (centrado) --- */
+body:not(:has(header)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* --- Tipografía base --- */
+h2 {
+  margin-bottom: 28px;
+  font-size: 1.3rem;
+  color: #e5e7eb;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #34d399;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  animation: fadeInDown 0.8s ease-out;
+  line-height: 1.3;
+}
+
+/* --- Imágenes --- */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
+  transition: transform 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  touch-action: pan-y pinch-zoom;
+}
