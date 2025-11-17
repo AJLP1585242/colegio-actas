@@ -40,6 +40,7 @@ const AuthModule = (function() {
    * Cierra la sesión del usuario
    */
   function logout() {
+    // Limpiar sesión
     sessionStorage.removeItem(config.SESSION_KEY);
     
     const currentPath = window.location.pathname;
@@ -48,20 +49,13 @@ const AuthModule = (function() {
                         currentPath === '/';
     
     if (!isIndexPage) {
-      // Si estamos en una página de actas, calcular ruta al index
-      let indexUrl;
-      if (currentPath.includes('/actas/')) {
-        // Cortar todo desde /actas/ en adelante
-        const baseUrl = currentPath.substring(0, currentPath.indexOf('/actas/'));
-        indexUrl = window.location.origin + baseUrl + '/index.html';
-      } else {
-        // Fallback: usar ruta relativa
-        indexUrl = '../../../index.html';
-      }
-      window.location.href = indexUrl;
+      // Si estamos en una página de actas, redirigir al index
+      // Usar location.replace para evitar que quede en el historial
+      const indexUrl = '../../../index.html';
+      window.location.replace(indexUrl);
     } else {
-      // Si estamos en el index, limpiar la interfaz
-      resetLoginInterface();
+      // Si estamos en el index, recargar la página para limpiar todo
+      window.location.reload();
     }
   }
 
