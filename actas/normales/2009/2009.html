@@ -11,7 +11,16 @@
   <link rel="stylesheet" href="../../../css/zoom.css">
   <link rel="stylesheet" href="../../../css/animations.css">
   <link rel="stylesheet" href="../../../css/responsive.css">
-</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../../../js/config.js"></script>
+  <script src="../../../js/auth.js"></script>
+  <script src="../../../js/navigation.js"></script>
+  <script src="../../../js/filter.js"></script>
+  <script src="../../../js/zoom.js"></script>  <script src="../../../js/imageOptimizer.js"></script>
+  <script src="../../../js/imageEnhancer.js"></script>
+  <script src="../../../js/pdf.js"></script>
+  <script src="../../../js/app.js"></script>
+  <script src="../../../js/funciones.js"></script></head>
 <body>
   <header>
     <h1 class="logo">Antonia Moreno de Caceres</h1>
@@ -19,157 +28,148 @@
   </header>
 
   <main id="contenedor-actas">
-    <!-- 1° Grado A -->
+    <!-- Grado 1, Sección A -->
     <section class="acta-card" data-grado="1" data-seccion="A">
       <h3>1° Grado - Sección A</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148833/CamScanner_29-10-2025_12.38_1_ci32xb.jpg" alt="Acta 1A Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149582/CamScanner_29-10-2025_12.38_2_jhn1jk.jpg" alt="Acta 1A Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148539/CamScanner_29-10-2025_12.30_1_kxn9xy.jpg" alt="Acta 1A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148637/CamScanner_29-10-2025_12.30_2_kueayj.jpg" alt="Acta 1A Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 1° Grado B -->
+    <!-- Grado 1, Sección B -->
     <section class="acta-card" data-grado="1" data-seccion="B">
       <h3>1° Grado - Sección B</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148846/CamScanner_29-10-2025_12.38_3_ou6mus.jpg" alt="Acta 1B Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149599/CamScanner_29-10-2025_12.38_4_iimoqh.jpg" alt="Acta 1B Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148551/CamScanner_29-10-2025_12.30_3_fkrehy.jpg" alt="Acta 1B Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148671/CamScanner_29-10-2025_12.30_4_vycsei.jpg" alt="Acta 1B Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 1° Grado C -->
+    <!-- Grado 1, Sección C -->
     <section class="acta-card" data-grado="1" data-seccion="C">
       <h3>1° Grado - Sección C</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148860/CamScanner_29-10-2025_12.38_5_np6u6q.jpg" alt="Acta 1C Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149643/CamScanner_29-10-2025_12.38_6_zxhq2u.jpg" alt="Acta 1C Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148565/CamScanner_29-10-2025_12.30_5_ddgm0t.jpg" alt="Acta 1C Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148699/CamScanner_29-10-2025_12.30_6_hp6rpy.jpg" alt="Acta 1C Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 2° Grado A -->
+    <!-- Grado 2, Sección A -->
     <section class="acta-card" data-grado="2" data-seccion="A">
       <h3>2° Grado - Sección A</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148873/CamScanner_29-10-2025_12.38_7_bpicim.jpg" alt="Acta 2A Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149672/CamScanner_29-10-2025_12.38_8_o6anne.jpg" alt="Acta 2A Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148767/CamScanner_29-10-2025_12.30_7_qwm4rl.jpg" alt="Acta 2A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148578/CamScanner_29-10-2025_12.30_8_alhvx0.jpg" alt="Acta 2A Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 2° Grado B -->
+    <!-- Grado 2, Sección B -->
     <section class="acta-card" data-grado="2" data-seccion="B">
       <h3>2° Grado - Sección B</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149672/CamScanner_29-10-2025_12.38_8_o6anne.jpg" alt="Acta 2B Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149698/CamScanner_29-10-2025_12.38_10_z0hbuh.jpg" alt="Acta 2B Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148597/CamScanner_29-10-2025_12.30_9_ve9kzh.jpg" alt="Acta 2B Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148777/CamScanner_29-10-2025_12.30_10_gdgz9l.jpg" alt="Acta 2B Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 2° Grado C -->
+    <!-- Grado 2, Sección C -->
     <section class="acta-card" data-grado="2" data-seccion="C">
       <h3>2° Grado - Sección C</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149724/CamScanner_29-10-2025_12.38_11_ir3ib6.jpg" alt="Acta 2C Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149736/CamScanner_29-10-2025_12.38_12_v6wd3b.jpg" alt="Acta 2C Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148610/CamScanner_29-10-2025_12.30_11_c8wygi.jpg" alt="Acta 2C Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148788/CamScanner_29-10-2025_12.30_12_ou0d1l.jpg" alt="Acta 2C Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 3° Grado A -->
+    <!-- Grado 3, Sección A -->
     <section class="acta-card" data-grado="3" data-seccion="A">
       <h3>3° Grado - Sección A</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149775/CamScanner_29-10-2025_12.38_13_vxir6w.jpg" alt="Acta 3A Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149788/CamScanner_29-10-2025_12.38_14_sryzgu.jpg" alt="Acta 3A Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148624/CamScanner_29-10-2025_12.30_13_d5yfge.jpg" alt="Acta 3A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148798/CamScanner_29-10-2025_12.30_14_aozbgx.jpg" alt="Acta 3A Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 3° Grado B -->
+    <!-- Grado 3, Sección B -->
     <section class="acta-card" data-grado="3" data-seccion="B">
       <h3>3° Grado - Sección B</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148922/CamScanner_29-10-2025_12.38_15_ikb7cc.jpg" alt="Acta 3B Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149802/CamScanner_29-10-2025_12.38_16_rj3wgw.jpg" alt="Acta 3B Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148811/CamScanner_29-10-2025_12.30_17_ms6d3p.jpg" alt="Acta 3B Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148898/CamScanner_29-10-2025_12.30_18_jan885.jpg" alt="Acta 3B Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 3° Grado C -->
+    <!-- Grado 3, Sección C -->
     <section class="acta-card" data-grado="3" data-seccion="C">
       <h3>3° Grado - Sección C</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149846/CamScanner_29-10-2025_12.38_17_npaz7s.jpg" alt="Acta 3C Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149877/CamScanner_29-10-2025_12.38_18_lqugoa.jpg" alt="Acta 3C Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148657/CamScanner_29-10-2025_12.30_19_eibgsw.jpg" alt="Acta 3C Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148938/CamScanner_29-10-2025_12.30_20_c0hcgx.jpg" alt="Acta 3C Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 4° Grado A -->
+    <!-- Grado 4, Sección A -->
     <section class="acta-card" data-grado="4" data-seccion="A">
       <h3>4° Grado - Sección A</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148950/CamScanner_29-10-2025_12.38_19_kkcvip.jpg" alt="Acta 4A Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149913/CamScanner_29-10-2025_12.38_20_j0lqfc.jpg" alt="Acta 4A Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148961/CamScanner_29-10-2025_12.30_21_ijc4ft.jpg" alt="Acta 4A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148994/CamScanner_29-10-2025_12.30_22_bbnhcr.jpg" alt="Acta 4A Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 4° Grado B -->
-    <section class="acta-card" data-grado="4" data-seccion="B">
-      <h3>4° Grado - Sección B</h3>
-      <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149938/CamScanner_29-10-2025_12.38_21_vggs3d.jpg" alt="Acta 4B Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149950/CamScanner_29-10-2025_12.38_22_saq6nt.jpg" alt="Acta 4B Trasero">
-      </div>
-      <button onclick="generarPDF(this)">Descargar PDF</button>
-    </section>
-
-    <!-- 4° Grado C -->
+    <!-- Grado 4, Sección C -->
     <section class="acta-card" data-grado="4" data-seccion="C">
       <h3>4° Grado - Sección C</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148981/CamScanner_29-10-2025_12.38_23_hqmymm.jpg" alt="Acta 4C Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149963/CamScanner_29-10-2025_12.38_24_ks4yki.jpg" alt="Acta 4C Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148689/CamScanner_29-10-2025_12.30_23_hwillp.jpg" alt="Acta 4C Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149105/CamScanner_29-10-2025_12.30_24_vgtefa.jpg" alt="Acta 4C Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 5° Grado A -->
+    <!-- Grado 5, Sección A -->
     <section class="acta-card" data-grado="5" data-seccion="A">
       <h3>5° Grado - Sección A</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762150024/CamScanner_29-10-2025_12.38_25_wsmiyw.jpg" alt="Acta 5A Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762150038/CamScanner_29-10-2025_12.38_26_nd6d3q.jpg" alt="Acta 5A Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149118/CamScanner_29-10-2025_12.30_25_bwnpcf.jpg" alt="Acta 5A Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149129/CamScanner_29-10-2025_12.30_26_ko5onn.jpg" alt="Acta 5A Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
 
-    <!-- 5° Grado C -->
+    <!-- Grado 5, Sección B -->
+    <section class="acta-card" data-grado="5" data-seccion="B">
+      <h3>5° Grado - Sección B</h3>
+      <div class="imagenes">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762148721/CamScanner_29-10-2025_12.30_27_xqmd8r.jpg" alt="Acta 5B Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149144/CamScanner_29-10-2025_12.30_28_rfwv2j.jpg" alt="Acta 5B Trasero">
+      </div>
+      <button onclick="generarPDF(this)">Descargar PDF</button>
+    </section>
+
+    <!-- Grado 5, Sección C -->
     <section class="acta-card" data-grado="5" data-seccion="C">
       <h3>5° Grado - Sección C</h3>
       <div class="imagenes">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149094/CamScanner_29-10-2025_12.38_27_turklj.jpg" alt="Acta 5C Delantero">
-        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762150065/CamScanner_29-10-2025_12.38_28_rjrzck.jpg" alt="Acta 5C Trasero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149204/CamScanner_29-10-2025_12.30_29_qjet2l.jpg" alt="Acta 5C Delantero">
+        <img src="https://res.cloudinary.com/dgs18wmuc/image/upload/v1762149217/CamScanner_29-10-2025_12.30_30_ew0uhh.jpg" alt="Acta 5C Trasero">
       </div>
       <button onclick="generarPDF(this)">Descargar PDF</button>
     </section>
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="../../../js/config.js"></script>
-  <script src="../../../js/auth.js"></script>
-  <script src="../../../js/navigation.js"></script>
-  <script src="../../../js/filter.js"></script>
-  <script src="../../../js/zoom.js"></script>`n  <script src="../../../js/imageOptimizer.js"></script>
-  <script src="../../../js/imageEnhancer.js"></script>
-  <script src="../../../js/pdf.js"></script>
-  <script src="../../../js/app.js"></script>
   <script src="../../../js/funciones.js"></script>
-</body>
+  <script src="../../../js/accessibility.js"></script></body>
 </html>
 
