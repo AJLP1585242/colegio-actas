@@ -98,85 +98,11 @@ const Bookmarks = (function() {
   }
 
   /**
-   * Agregar botones a las actas
+   * Agregar botones a las actas - DESHABILITADO
    */
   function addBookmarkButtons() {
-    const cards = document.querySelectorAll('.acta-card');
-    
-    cards.forEach((card, index) => {
-      // Generar ID único para el acta
-      const actaId = card.id || `acta-${index}`;
-      if (!card.id) card.id = actaId;
-
-      // Verificar si ya tiene el botón
-      if (card.querySelector('.bookmark-btn')) return;
-
-      // Crear contenedor de botones
-      let buttonContainer = card.querySelector('.bookmark-buttons');
-      if (!buttonContainer) {
-        buttonContainer = document.createElement('div');
-        buttonContainer.className = 'bookmark-buttons';
-        buttonContainer.style.cssText = `
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          display: flex;
-          gap: 8px;
-          z-index: 10;
-        `;
-        card.style.position = 'relative';
-        card.appendChild(buttonContainer);
-      }
-
-      // Botón de estrella
-      const starBtn = document.createElement('button');
-      const bookmark = get(actaId);
-      const isStarred = bookmark?.starred || false;
-      
-      starBtn.className = 'bookmark-btn star-btn';
-      starBtn.innerHTML = isStarred ? '⭐' : '☆';
-      starBtn.title = 'Marcar como favorito';
-      starBtn.style.cssText = `
-        background: rgba(15, 32, 39, 0.9);
-        border: 2px solid #fbbf24;
-        color: #fbbf24;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 18px;
-        transition: all 0.2s ease;
-      `;
-      starBtn.onclick = (e) => {
-        e.stopPropagation();
-        const starred = toggleStar(actaId);
-        starBtn.innerHTML = starred ? '⭐' : '☆';
-      };
-
-      // Botón de nota
-      const noteBtn = document.createElement('button');
-      const hasNote = bookmark?.note?.trim().length > 0;
-      
-      noteBtn.className = 'bookmark-btn note-btn';
-      noteBtn.innerHTML = hasNote ? '📝' : '📄';
-      noteBtn.title = 'Agregar nota';
-      noteBtn.style.cssText = `
-        background: rgba(15, 32, 39, 0.9);
-        border: 2px solid #34d399;
-        color: #34d399;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 18px;
-        transition: all 0.2s ease;
-      `;
-      noteBtn.onclick = (e) => {
-        e.stopPropagation();
-        showNoteModal(actaId);
-      };
-
-      buttonContainer.appendChild(starBtn);
-      buttonContainer.appendChild(noteBtn);
-    });
+    // Botones en actas deshabilitados - funcionalidad solo por código
+    return;
   }
 
   /**
@@ -565,32 +491,11 @@ const Bookmarks = (function() {
   }
 
   /**
-   * Agregar botón al menú
+   * Agregar botón al menú - DESHABILITADO
    */
   function addMenuButton() {
-    const menuBox = document.querySelector('.menu-box');
-    if (!menuBox) return;
-
-    const bookmarksBtn = document.createElement('button');
-    bookmarksBtn.className = 'btn-bookmarks';
-    bookmarksBtn.innerHTML = '📚 Marcadores (<span id="bookmark-count">0</span>)';
-    bookmarksBtn.style.cssText = `
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      border: 2px solid #fbbf24;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      margin-top: 16px;
-      width: 100%;
-    `;
-    bookmarksBtn.onclick = showPanel;
-
-    menuBox.appendChild(bookmarksBtn);
-    updateBookmarkCount();
+    // Botón deshabilitado - usar Alt+B o funcionalidad por código
+    return;
   }
 
   /**

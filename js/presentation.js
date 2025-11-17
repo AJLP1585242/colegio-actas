@@ -364,43 +364,11 @@ const PresentationMode = (function() {
   }
 
   /**
-   * Agregar botón de presentación al menú
+   * Agregar botón de presentación al menú - DESHABILITADO
    */
   function addPresentationButton() {
-    // Buscar contenedor de botones
-    const menuBox = document.querySelector('.menu-box');
-    if (!menuBox) {
-      console.warn('No se encontró .menu-box para agregar botón de presentación');
-      return;
-    }
-
-    const presentBtn = document.createElement('button');
-    presentBtn.className = 'btn-presentacion';
-    presentBtn.innerHTML = '🎬 Modo Presentación';
-    presentBtn.style.cssText = `
-      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-      color: white;
-      border: 2px solid #a78bfa;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      margin-top: 16px;
-      width: 100%;
-    `;
-    presentBtn.onmouseover = () => {
-      presentBtn.style.background = 'linear-gradient(135deg, #7c3aed, #6d28d9)';
-      presentBtn.style.transform = 'translateY(-2px)';
-    };
-    presentBtn.onmouseout = () => {
-      presentBtn.style.background = 'linear-gradient(135deg, #8b5cf6, #7c3aed)';
-      presentBtn.style.transform = 'translateY(0)';
-    };
-    presentBtn.onclick = start;
-
-    menuBox.appendChild(presentBtn);
+    // Botón deshabilitado - acceso solo por funcionalidad interna
+    return;
   }
 
   /**
