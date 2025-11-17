@@ -171,13 +171,17 @@ const NavigationModule = (function() {
       let indexUrl;
       const currentPath = window.location.pathname;
       
+      // Verificar si es página de recuperación
+      const isRecuperacion = currentPath.includes('/recuperacion/');
+      const menuParam = isRecuperacion ? 'recuperacion' : 'actas';
+      
       if (currentPath.includes('/actas/')) {
         // Cortar todo desde /actas/ en adelante
         const baseUrl = currentPath.substring(0, currentPath.indexOf('/actas/'));
-        indexUrl = window.location.origin + baseUrl + '/index.html?menu=actas';
+        indexUrl = window.location.origin + baseUrl + '/index.html?menu=' + menuParam;
       } else {
         // Fallback: usar ruta relativa
-        indexUrl = '../../../index.html?menu=actas';
+        indexUrl = '../../../index.html?menu=' + menuParam;
       }
       
       console.log('URL construida:', indexUrl);
