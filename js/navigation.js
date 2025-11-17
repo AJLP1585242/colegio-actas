@@ -60,7 +60,21 @@ const NavigationModule = (function() {
    */
   function showActasSelector() {
     const menuDiv = document.getElementById('menu');
-    if (menuDiv) menuDiv.style.display = 'block';
+    if (menuDiv) {
+      menuDiv.style.display = 'block';
+      // Resetear los selectores al volver
+      const anioSelect = document.getElementById('anio');
+      const gradoSelect = document.getElementById('grado');
+      const seccionSelect = document.getElementById('seccion');
+      
+      if (anioSelect) anioSelect.value = '';
+      if (gradoSelect) {
+        gradoSelect.innerHTML = '<option value="">-- Todas --</option>';
+      }
+      if (seccionSelect) {
+        seccionSelect.innerHTML = '<option value="">-- Todas --</option>';
+      }
+    }
   }
 
   /**
@@ -68,7 +82,12 @@ const NavigationModule = (function() {
    */
   function showRecuperacionSelector() {
     const recuperacionDiv = document.getElementById('recuperacion');
-    if (recuperacionDiv) recuperacionDiv.style.display = 'block';
+    if (recuperacionDiv) {
+      recuperacionDiv.style.display = 'block';
+      // Resetear el selector al volver
+      const anioRpSelect = document.getElementById('anio-rp');
+      if (anioRpSelect) anioRpSelect.value = '';
+    }
   }
 
   /**
