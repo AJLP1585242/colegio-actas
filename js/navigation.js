@@ -185,12 +185,8 @@ const NavigationModule = (function() {
       
       navDiv.innerHTML = `
         <button onclick="window.location.href='${indexUrl}'" 
-                style="width: auto; padding: 8px 16px; font-size: 0.85rem; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 0;">
+                style="width: auto; padding: 8px 16px; font-size: 0.85rem; background-color: #34d399; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 0; box-shadow: 0 2px 8px rgba(52, 211, 153, 0.3);">
           Volver al Selector
-        </button>
-        <button onclick="logout()" 
-                style="width: auto; padding: 8px 16px; font-size: 0.85rem; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 0;">
-          Cerrar Sesión
         </button>
       `;
       header.appendChild(navDiv);
