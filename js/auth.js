@@ -43,11 +43,22 @@ const AuthModule = (function() {
     sessionStorage.removeItem(config.SESSION_KEY);
     
     const currentPath = window.location.pathname;
-    const isInSubfolder = currentPath.includes('/') && !currentPath.endsWith('index.html');
+    const isIndexPage = currentPath.endsWith('index.html') || 
+                        currentPath.endsWith('/') || 
+                        currentPath === '/';
     
-    if (isInSubfolder) {
-      // Si estamos en una subcarpeta, redirigir al index
-      window.location.href = window.APP_CONFIG.PATHS.INDEX;
+    if (!isIndexPage) {
+      // Si estamos en una página de actas, calcular ruta al index
+      let indexUrl;
+      if (currentPath.includes('/actas/')) {
+        // Cortar todo desde /actas/ en adelante
+        const baseUrl = currentPath.substring(0, currentPath.indexOf('/actas/'));
+        indexUrl = window.location.origin + baseUrl + '/index.html';
+      } else {
+        // Fallback: usar ruta relativa
+        indexUrl = '../../../index.html';
+      }
+      window.location.href = indexUrl;
     } else {
       // Si estamos en el index, limpiar la interfaz
       resetLoginInterface();
