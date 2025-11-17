@@ -146,7 +146,7 @@ const NavigationModule = (function() {
     if (header && !header.querySelector('.navigation-buttons')) {
       const navDiv = document.createElement('div');
       navDiv.className = 'navigation-buttons';
-      navDiv.style.cssText = 'margin: 10px 0; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;';
+      navDiv.style.cssText = 'margin: 5px 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;';
       
       // Encontrar la ruta base cortando en /actas/
       let indexUrl;
@@ -166,11 +166,11 @@ const NavigationModule = (function() {
       
       navDiv.innerHTML = `
         <button onclick="window.location.href='${indexUrl}'" 
-                style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                style="width: auto; padding: 8px 16px; font-size: 0.85rem; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 0;">
           Volver al Selector
         </button>
         <button onclick="logout()" 
-                style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                style="width: auto; padding: 8px 16px; font-size: 0.85rem; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; margin: 0;">
           Cerrar Sesión
         </button>
       `;
