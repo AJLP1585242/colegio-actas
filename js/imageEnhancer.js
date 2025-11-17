@@ -591,9 +591,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     }
-    
-    // Crear UI de control (opcional, para ajustar manualmente)
-    ImageEnhancer.createUI();
   }
 });
 
