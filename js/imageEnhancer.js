@@ -534,79 +534,18 @@ const ImageEnhancer = (function() {
   }
 
   /**
-   * Crear interfaz de control
+   * Crear interfaz de control (deshabilitada - ahora es automático)
    */
   function createEnhancerUI() {
+    // UI deshabilitada - el sistema es completamente automático
+    // Si necesitas control manual, descomenta el código a continuación
+    
+    /* 
     const container = document.createElement('div');
     container.id = 'enhancer-ui';
-    container.innerHTML = `
-      <style>
-        #enhancer-ui {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background: rgba(15, 32, 39, 0.95);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(52, 211, 153, 0.3);
-          border-radius: 12px;
-          padding: 16px;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-          z-index: 9999;
-          min-width: 280px;
-        }
-        #enhancer-ui h4 {
-          margin: 0 0 12px 0;
-          color: #34d399;
-          font-size: 14px;
-          font-weight: 600;
-        }
-        #enhancer-ui button {
-          width: 100%;
-          padding: 10px;
-          margin: 6px 0;
-          background: linear-gradient(135deg, #34d399, #10b981);
-          border: none;
-          border-radius: 6px;
-          color: #0f2027;
-          font-weight: 600;
-          font-size: 13px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        #enhancer-ui button:hover {
-          background: linear-gradient(135deg, #10b981, #059669);
-          transform: translateY(-1px);
-        }
-        #enhancer-ui button.restore {
-          background: linear-gradient(135deg, #ef4444, #dc2626);
-          color: white;
-        }
-        #enhancer-ui button.restore:hover {
-          background: linear-gradient(135deg, #dc2626, #b91c1c);
-        }
-        #enhancer-ui .close-btn {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          background: none;
-          border: none;
-          color: #9ca3af;
-          cursor: pointer;
-          font-size: 20px;
-          padding: 0;
-          width: auto;
-          line-height: 1;
-        }
-      </style>
-      <button class="close-btn" onclick="document.getElementById('enhancer-ui').style.display='none'">×</button>
-      <h4>🤖 Mejorar Legibilidad IA</h4>
-      <button onclick="ImageEnhancer.enhance('light')">✨ Leve</button>
-      <button onclick="ImageEnhancer.enhance('medium')">🔥 Medio (Recomendado)</button>
-      <button onclick="ImageEnhancer.enhance('strong')">⚡ Intenso</button>
-      <button class="restore" onclick="ImageEnhancer.restore()">↩️ Restaurar Original</button>
-    `;
-    
+    container.innerHTML = `...`;
     document.body.appendChild(container);
+    */
   }
 
   // API pública
