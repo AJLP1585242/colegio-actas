@@ -199,6 +199,20 @@ window.mostrarMenu = NavigationModule.showMenu;
 window.volverATipoActas = NavigationModule.backToTypeSelector;
 window.entrar = function() {
   const anio = document.getElementById('anio').value;
+  const verTodoAnio = document.getElementById('verTodoAnio')?.checked;
+  
+  if (!anio) {
+    alert(window.APP_CONFIG.MESSAGES.SELECT_REQUIRED);
+    return;
+  }
+  
+  // Si está marcado "Ver todo el año", ir directamente a la página del año
+  if (verTodoAnio) {
+    window.location.href = anio;
+    return;
+  }
+  
+  // De lo contrario, usar la navegación normal con grado y sección
   const grado = document.getElementById('grado').value;
   const seccion = document.getElementById('seccion').value;
   NavigationModule.goToActa(anio, grado, seccion);
