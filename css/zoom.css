@@ -15,6 +15,16 @@
 .zoom-image {
   transition: transform 0.2s ease;
   transform-origin: center;
+  /* Mejoras de calidad durante zoom */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Interpolación de alta calidad */
+  -ms-interpolation-mode: bicubic;
+  /* Prevenir blur al hacer zoom */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* --- Controles de zoom --- */

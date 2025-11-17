@@ -104,6 +104,52 @@ button:active {
   margin-bottom: 20px;
 }
 
+.acta-card .imagenes img {
+  /* Mejoras de nitidez específicas para actas */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  /* Renderizado de alta calidad */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  /* Interpolación bicúbica para mejor calidad */
+  -ms-interpolation-mode: bicubic;
+  /* Prevenir blur */
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1.001);
+  /* Nitidez mejorada */
+  filter: contrast(1.05) brightness(1.02);
+  transition: all 0.3s ease;
+}
+
+.acta-card .imagenes img:hover {
+  filter: contrast(1.08) brightness(1.04);
+  box-shadow: 0 6px 16px rgba(52, 211, 153, 0.3);
+}
+
+/* Animación de carga de imágenes optimizadas */
+.acta-card .imagenes img:not(.imagen-cargada) {
+  opacity: 0.7;
+  filter: blur(2px) contrast(1.05);
+  animation: cargarImagen 0.6s ease-out forwards;
+}
+
+@keyframes cargarImagen {
+  from {
+    opacity: 0.7;
+    filter: blur(2px) contrast(1.05);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0) contrast(1.05) brightness(1.02);
+  }
+}
+
+.imagen-cargada {
+  animation: none !important;
+}
+
 .acta-card button {
   background: linear-gradient(135deg, #34d399, #10b981);
   color: #0f2027;
