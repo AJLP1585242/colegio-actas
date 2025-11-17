@@ -171,7 +171,7 @@ const NavigationModule = (function() {
       let indexUrl;
       const currentPath = window.location.pathname;
       
-      // Verificar si es página de recuperación
+      // Detectar si es página de recuperación
       const isRecuperacion = currentPath.includes('/recuperacion/');
       const menuParam = isRecuperacion ? 'recuperacion' : 'actas';
       
