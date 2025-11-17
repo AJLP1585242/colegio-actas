@@ -96,27 +96,6 @@
         poblarSeccionesParaGrado(gradoSelect.value);
       });
 
-      // Manejar el checkbox de "Ver todo el año"
-      const verTodoAnioCheckbox = document.getElementById('verTodoAnio');
-      const gradoContainer = document.getElementById('gradoContainer');
-      const seccionContainer = document.getElementById('seccionContainer');
-      
-      verTodoAnioCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-          // Ocultar selectores y quitar required
-          gradoContainer.style.display = 'none';
-          seccionContainer.style.display = 'none';
-          gradoSelect.removeAttribute('required');
-          gradoSelect.value = '';
-          seccionSelect.value = '';
-        } else {
-          // Mostrar selectores y agregar required
-          gradoContainer.style.display = 'block';
-          seccionContainer.style.display = 'block';
-          gradoSelect.setAttribute('required', 'required');
-        }
-      });
-
       anioSelect.addEventListener('change', function() {
         // Limpiar selects
         resetCombos();
@@ -221,22 +200,16 @@
           <option value="actas/normales/1990/1990.html">1990</option>
         </select>
       </div>
-      <div class="selector" style="margin-bottom: 15px;">
-        <label style="display: flex; align-items: center; cursor: pointer; user-select: none;">
-          <input type="checkbox" id="verTodoAnio" style="width: auto; margin-right: 8px;">
-          <span>Ver todas las actas del año</span>
-        </label>
-      </div>
       <div class="selector" id="gradoContainer">
-        <label for="grado">Grado:</label>
-        <select id="grado" required>
-          <option value="">-- Seleccionar --</option>
+        <label for="grado">Grado (opcional):</label>
+        <select id="grado">
+          <option value="">-- Todas --</option>
         </select>
       </div>
       <div class="selector" id="seccionContainer">
-        <label for="seccion">Sección:</label>
+        <label for="seccion">Sección (opcional):</label>
         <select id="seccion">
-          <option value="">-- Seleccionar --</option>
+          <option value="">-- Todas --</option>
         </select>
       </div>
       

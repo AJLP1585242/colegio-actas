@@ -199,22 +199,27 @@ window.mostrarMenu = NavigationModule.showMenu;
 window.volverATipoActas = NavigationModule.backToTypeSelector;
 window.entrar = function() {
   const anio = document.getElementById('anio').value;
-  const verTodoAnio = document.getElementById('verTodoAnio')?.checked;
+  const grado = document.getElementById('grado').value;
+  const seccion = document.getElementById('seccion').value;
   
   if (!anio) {
     alert(window.APP_CONFIG.MESSAGES.SELECT_REQUIRED);
     return;
   }
   
-  // Si está marcado "Ver todo el año", ir directamente a la página del año
-  if (verTodoAnio) {
+  // Si no se seleccionó grado, mostrar todas las actas del año
+  if (!grado) {
     window.location.href = anio;
     return;
   }
   
-  // De lo contrario, usar la navegación normal con grado y sección
-  const grado = document.getElementById('grado').value;
-  const seccion = document.getElementById('seccion').value;
+  // Si se seleccionó grado pero no sección, mostrar todas las secciones de ese grado
+  if (grado && !seccion) {
+    window.location.href = `${anio}?grado=${grado}`;
+    return;
+  }
+  
+  // Si se seleccionó todo, filtrar específicamente
   NavigationModule.goToActa(anio, grado, seccion);
 };
 window.entrarRecuperacion = function() {
