@@ -150,6 +150,14 @@ button:active {
   animation: none !important;
 }
 
+/* Mejora visual para imágenes procesadas con IA */
+img[data-original-src] {
+  /* Las imágenes mejoradas ya tienen procesamiento, solo realzar */
+  filter: contrast(1.02) brightness(1.01) !important;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
 .acta-card button {
   background: linear-gradient(135deg, #34d399, #10b981);
   color: #0f2027;

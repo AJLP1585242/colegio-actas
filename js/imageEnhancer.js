@@ -331,15 +331,24 @@ const ImageEnhancer = (function() {
     imageData = adaptiveContrast(imageData, contrastBoost);
     
     // PASO 4: Unsharp mask (nitidez profesional)
-    imageData = unsharpMask(imageData, sharpenAmount, unsharpRadius, 5);
+    imageData = unsharpMask(imageData, sharpenAmount, unsharpRadius, 3);
     
-    // PASO 5: Sharpening adicional leve
-    imageData = sharpenKernel(imageData, 0.3);
+    // PASO 5: Sharpening adicional más fuerte para texto
+    imageData = sharpenKernel(imageData, 0.5);
+    
+    // PASO 6: Segunda pasada de unsharp (técnica avanzada)
+    imageData = unsharpMask(imageData, sharpenAmount * 0.4, 1, 5);
     
     // Escribir resultado
     ctx.putImageData(imageData, 0, 0);
     
-    return canvas.toDataURL('image/jpeg', 0.98);
+    // Aplicar filtro CSS adicional en el contexto para máxima nitidez
+    ctx.filter = 'contrast(1.02)';
+    ctx.drawImage(canvas, 0, 0);
+    ctx.filter = 'none';
+    
+    // Exportar con calidad máxima (100%)
+    return canvas.toDataURL('image/jpeg', 1.0);
   }
 
   /**
@@ -374,9 +383,77 @@ const ImageEnhancer = (function() {
   }
 
   /**
+   * Mostrar indicador de procesamiento
+   */
+  function showProcessingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.id = 'ia-processing';
+    indicator.innerHTML = `
+      <style>
+        #ia-processing {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(15, 32, 39, 0.98);
+          backdrop-filter: blur(20px);
+          border: 2px solid #34d399;
+          border-radius: 16px;
+          padding: 24px 40px;
+          z-index: 10000;
+          text-align: center;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        #ia-processing .spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid rgba(52, 211, 153, 0.2);
+          border-top: 4px solid #34d399;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 16px auto;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        #ia-processing h3 {
+          color: #34d399;
+          margin: 0 0 8px 0;
+          font-size: 18px;
+        }
+        #ia-processing p {
+          color: #9ca3af;
+          margin: 0;
+          font-size: 14px;
+        }
+      </style>
+      <div class="spinner"></div>
+      <h3>🤖 IA Procesando Imágenes</h3>
+      <p>Mejorando legibilidad...</p>
+    `;
+    document.body.appendChild(indicator);
+    return indicator;
+  }
+
+  /**
+   * Ocultar indicador de procesamiento
+   */
+  function hideProcessingIndicator() {
+    const indicator = document.getElementById('ia-processing');
+    if (indicator) {
+      indicator.style.opacity = '0';
+      indicator.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => indicator.remove(), 300);
+    }
+  }
+
+  /**
    * Aplicar mejora automática a todas las imágenes de actas
    */
   function enhanceAllImages(intensity = 'medium') {
+    const indicator = showProcessingIndicator();
+    
     const presets = {
       light: {
         denoiseStrength: 0.3,
@@ -395,12 +472,12 @@ const ImageEnhancer = (function() {
         gamma: 1.1
       },
       strong: {
-        denoiseStrength: 0.7,
-        contrastBoost: 2.2,
-        sharpenAmount: 3.5,
+        denoiseStrength: 0.6,
+        contrastBoost: 2.5,       // Aumentado para mejor contraste
+        sharpenAmount: 3.8,       // Aumentado para máxima nitidez
         unsharpRadius: 2,
-        brightness: 1.08,
-        gamma: 1.15
+        brightness: 1.10,         // Mayor brillo para texto
+        gamma: 1.18               // Gamma más alto para realzar detalles
       }
     };
     
@@ -430,7 +507,15 @@ const ImageEnhancer = (function() {
       img.src = enhanced;
       
       processed++;
-      console.log(`✓ Imagen ${processed} mejorada con IA`);
+      console.log(`✓ Imagen ${processed}/${images.length} mejorada con IA`);
+      
+      // Ocultar indicador cuando todas estén procesadas
+      if (processed === images.length) {
+        setTimeout(() => {
+          hideProcessingIndicator();
+          console.log(`✅ ${processed} imágenes mejoradas con IA (nivel: ${intensity})`);
+        }, 500);
+      }
     }
     
     console.log(`🤖 Procesando ${images.length} imágenes con IA (intensidad: ${intensity})...`);
@@ -534,12 +619,42 @@ const ImageEnhancer = (function() {
 
 })();
 
-// Crear UI automáticamente en páginas de actas
+// Aplicar mejora automática al cargar
 document.addEventListener('DOMContentLoaded', () => {
-  // Solo crear UI si estamos en una página de actas (no en index)
+  // Solo en páginas de actas (no en index)
   if (document.querySelector('.acta-card, .card')) {
+    console.log('🤖 Aplicando mejora automática de legibilidad...');
+    
+    // Esperar a que las imágenes carguen completamente
+    const images = document.querySelectorAll('.acta-card img, .card img');
+    let loadedCount = 0;
+    
+    const checkAllLoaded = () => {
+      loadedCount++;
+      if (loadedCount === images.length) {
+        // Todas las imágenes cargadas, aplicar mejora
+        setTimeout(() => {
+          ImageEnhancer.enhance('strong'); // Usar nivel INTENSO para máxima calidad
+          console.log('✅ Mejora automática completada');
+        }, 500);
+      }
+    };
+    
+    if (images.length === 0) {
+      console.log('⚠️ No se encontraron imágenes para mejorar');
+    } else {
+      images.forEach(img => {
+        if (img.complete) {
+          checkAllLoaded();
+        } else {
+          img.addEventListener('load', checkAllLoaded, { once: true });
+          img.addEventListener('error', checkAllLoaded, { once: true });
+        }
+      });
+    }
+    
+    // Crear UI de control (opcional, para ajustar manualmente)
     ImageEnhancer.createUI();
-    console.log('🤖 IA de mejora de imágenes disponible (botón abajo-derecha)');
   }
 });
 

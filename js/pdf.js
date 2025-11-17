@@ -81,9 +81,19 @@ const PDFModule = (function() {
     const img = new Image();
     img.crossOrigin = "anonymous";
     
-    // Usar URL optimizada para PDF de alta calidad
-    const urlOptimizada = optimizarURLParaPDF(url);
-    img.src = urlOptimizada;
+    // Intentar usar la imagen mejorada si existe
+    const imgElement = document.querySelector(`img[data-original-src*="${url}"]`) || 
+                       document.querySelector(`img[src="${url}"]`);
+    
+    if (imgElement && imgElement.dataset.originalSrc) {
+      // Usar la versión mejorada con IA
+      console.log('📄 Usando imagen mejorada con IA para PDF');
+      img.src = imgElement.src; // Ya está procesada
+    } else {
+      // Usar URL optimizada para PDF de alta calidad
+      const urlOptimizada = optimizarURLParaPDF(url);
+      img.src = urlOptimizada;
+    }
     
     img.onload = function() {
       const imgWidth = pageWidth - (config.MARGIN * 2);
