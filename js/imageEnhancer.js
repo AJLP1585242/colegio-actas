@@ -319,36 +319,22 @@ const ImageEnhancer = (function() {
     ctx.drawImage(img, 0, 0);
     let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     
-    // PASO 1: Reducción de ruido (leve, para no perder detalle)
-    if (denoiseStrength > 0) {
-      imageData = bilateralFilter(imageData, 2, 30 * denoiseStrength);
-    }
-    
-    // PASO 2: Ajuste de brillo y gamma
+    // PASO 1: Ajuste de brillo y gamma (rápido)
     applyBrightnessGamma(imageData, brightness, gamma);
     
-    // PASO 3: Contraste adaptativo (CLAHE)
+    // PASO 2: Contraste adaptativo (CLAHE)
     imageData = adaptiveContrast(imageData, contrastBoost);
     
-    // PASO 4: Unsharp mask (nitidez profesional)
-    imageData = unsharpMask(imageData, sharpenAmount, unsharpRadius, 3);
+    // PASO 3: Unsharp mask (nitidez profesional)
+    imageData = unsharpMask(imageData, sharpenAmount, unsharpRadius, 5);
     
-    // PASO 5: Sharpening adicional más fuerte para texto
-    imageData = sharpenKernel(imageData, 0.5);
-    
-    // PASO 6: Segunda pasada de unsharp (técnica avanzada)
-    imageData = unsharpMask(imageData, sharpenAmount * 0.4, 1, 5);
+    // Reducción de ruido y sharpening adicional DESHABILITADOS para velocidad
     
     // Escribir resultado
     ctx.putImageData(imageData, 0, 0);
     
-    // Aplicar filtro CSS adicional en el contexto para máxima nitidez
-    ctx.filter = 'contrast(1.02)';
-    ctx.drawImage(canvas, 0, 0);
-    ctx.filter = 'none';
-    
-    // Exportar con calidad máxima (100%)
-    return canvas.toDataURL('image/jpeg', 1.0);
+    // Exportar con buena calidad pero rápido (92%)
+    return canvas.toDataURL('image/jpeg', 0.92);
   }
 
   /**
@@ -383,69 +369,18 @@ const ImageEnhancer = (function() {
   }
 
   /**
-   * Mostrar indicador de procesamiento
+   * Mostrar indicador de procesamiento (DESHABILITADO - invisible)
    */
   function showProcessingIndicator() {
-    const indicator = document.createElement('div');
-    indicator.id = 'ia-processing';
-    indicator.innerHTML = `
-      <style>
-        #ia-processing {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: rgba(15, 32, 39, 0.98);
-          backdrop-filter: blur(20px);
-          border: 2px solid #34d399;
-          border-radius: 16px;
-          padding: 24px 40px;
-          z-index: 10000;
-          text-align: center;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-        #ia-processing .spinner {
-          width: 50px;
-          height: 50px;
-          border: 4px solid rgba(52, 211, 153, 0.2);
-          border-top: 4px solid #34d399;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-          margin: 0 auto 16px auto;
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        #ia-processing h3 {
-          color: #34d399;
-          margin: 0 0 8px 0;
-          font-size: 18px;
-        }
-        #ia-processing p {
-          color: #9ca3af;
-          margin: 0;
-          font-size: 14px;
-        }
-      </style>
-      <div class="spinner"></div>
-      <h3>🤖 IA Procesando Imágenes</h3>
-      <p>Mejorando legibilidad...</p>
-    `;
-    document.body.appendChild(indicator);
-    return indicator;
+    // Sin indicador visual - completamente invisible
+    return null;
   }
 
   /**
-   * Ocultar indicador de procesamiento
+   * Ocultar indicador de procesamiento (DESHABILITADO)
    */
   function hideProcessingIndicator() {
-    const indicator = document.getElementById('ia-processing');
-    if (indicator) {
-      indicator.style.opacity = '0';
-      indicator.style.transition = 'opacity 0.3s ease';
-      setTimeout(() => indicator.remove(), 300);
-    }
+    // No hace nada - no hay indicador
   }
 
   /**
@@ -486,14 +421,16 @@ const ImageEnhancer = (function() {
     let processed = 0;
     
     images.forEach((img, index) => {
-      // Esperar a que cargue
-      if (img.complete) {
-        processImage(img, options);
-      } else {
-        img.addEventListener('load', function() {
-          processImage(this, options);
-        }, { once: true });
-      }
+      // Procesar en background para no bloquear la UI
+      setTimeout(() => {
+        if (img.complete) {
+          processImage(img, options);
+        } else {
+          img.addEventListener('load', function() {
+            processImage(this, options);
+          }, { once: true });
+        }
+      }, index * 50); // Pequeño delay entre imágenes para no saturar
     });
     
     function processImage(img, options) {
@@ -507,18 +444,15 @@ const ImageEnhancer = (function() {
       img.src = enhanced;
       
       processed++;
-      console.log(`✓ Imagen ${processed}/${images.length} mejorada con IA`);
       
-      // Ocultar indicador cuando todas estén procesadas
+      // Silencioso - sin logs ni indicadores
       if (processed === images.length) {
-        setTimeout(() => {
-          hideProcessingIndicator();
-          console.log(`✅ ${processed} imágenes mejoradas con IA (nivel: ${intensity})`);
-        }, 500);
+        hideProcessingIndicator();
+        console.log(`✅ ${processed} imágenes mejoradas (invisible)`);
       }
     }
     
-    console.log(`🤖 Procesando ${images.length} imágenes con IA (intensidad: ${intensity})...`);
+    // Procesamiento silencioso en background
   }
 
   /**
@@ -562,26 +496,19 @@ const ImageEnhancer = (function() {
 document.addEventListener('DOMContentLoaded', () => {
   // Solo en páginas de actas (no en index)
   if (document.querySelector('.acta-card, .card')) {
-    console.log('🤖 Aplicando mejora automática de legibilidad...');
-    
-    // Esperar a que las imágenes carguen completamente
+    // Procesamiento completamente invisible y rápido
     const images = document.querySelectorAll('.acta-card img, .card img');
     let loadedCount = 0;
     
     const checkAllLoaded = () => {
       loadedCount++;
       if (loadedCount === images.length) {
-        // Todas las imágenes cargadas, aplicar mejora
-        setTimeout(() => {
-          ImageEnhancer.enhance('strong'); // Usar nivel INTENSO para máxima calidad
-          console.log('✅ Mejora automática completada');
-        }, 500);
+        // Aplicar mejora rápida sin delays
+        ImageEnhancer.enhance('medium');
       }
     };
     
-    if (images.length === 0) {
-      console.log('⚠️ No se encontraron imágenes para mejorar');
-    } else {
+    if (images.length > 0) {
       images.forEach(img => {
         if (img.complete) {
           checkAllLoaded();
