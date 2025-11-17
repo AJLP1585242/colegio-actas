@@ -48,7 +48,28 @@ const PDFModule = (function() {
   }
 
   /**
-   * Carga y agrega una imagen al PDF
+   * Optimiza URL de Cloudinary para máxima calidad en PDF
+   * @param {string} url - URL original de Cloudinary
+   * @returns {string} URL optimizada para impresión
+   */
+  function optimizarURLParaPDF(url) {
+    if (!url.includes('cloudinary')) {
+      return url;
+    }
+    
+    const uploadIndex = url.indexOf('/upload/');
+    if (uploadIndex === -1) {
+      return url;
+    }
+    
+    // Parámetros para máxima calidad en PDF (impresión 300 DPI)
+    const transformaciones = 'q_100,f_jpg,dpr_3.0,w_3000,c_limit,fl_progressive:steep';
+    
+    return url.slice(0, uploadIndex + 8) + transformaciones + '/' + url.slice(uploadIndex + 8);
+  }
+
+  /**
+   * Carga y agrega una imagen al PDF con máxima calidad
    * @param {jsPDF} pdf - Instancia de jsPDF
    * @param {string} url - URL de la imagen
    * @param {number} pageWidth - Ancho de la página
@@ -59,7 +80,10 @@ const PDFModule = (function() {
   function loadAndAddImage(pdf, url, pageWidth, pageHeight, previousHeight, callback) {
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.src = url;
+    
+    // Usar URL optimizada para PDF de alta calidad
+    const urlOptimizada = optimizarURLParaPDF(url);
+    img.src = urlOptimizada;
     
     img.onload = function() {
       const imgWidth = pageWidth - (config.MARGIN * 2);
@@ -73,17 +97,34 @@ const PDFModule = (function() {
         imgHeight *= factor;
       }
 
-      // Usar canvas para asegurar orientación correcta
+      // Canvas de alta resolución para PDF de calidad
       const canvas = document.createElement('canvas');
+      // Usar resolución nativa completa (300 DPI equivalente)
       canvas.width = img.naturalWidth;
       canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const imgData = canvas.toDataURL(`image/${config.IMAGE_FORMAT}`, config.IMAGE_QUALITY);
+      
+      const ctx = canvas.getContext('2d', {
+        alpha: false,
+        desynchronized: false,
+        willReadFrequently: false
+      });
+      
+      // Configuración para máxima calidad de renderizado
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      
+      // Aplicar ligero sharpening para mejor legibilidad en PDF
+      ctx.filter = 'contrast(1.05) brightness(1.01)';
+      
+      // Dibujar imagen en canvas
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      
+      // Convertir a base64 con máxima calidad (1.0 = 100%)
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
       
       // Posición Y: después del título y de imágenes previas
       const yPosition = 25 + previousHeight + (previousHeight > 0 ? config.MARGIN : 0);
-      pdf.addImage(imgData, config.IMAGE_FORMAT, config.MARGIN, yPosition, imgWidth, imgHeight);
+      pdf.addImage(imgData, 'JPEG', config.MARGIN, yPosition, imgWidth, imgHeight);
       
       if (callback) callback(pdf, imgHeight);
     };

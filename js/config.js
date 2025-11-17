@@ -21,14 +21,17 @@ const CONFIG = {
     LOGIN_REDIRECT: '../../../index.html'
   },
 
-  // Configuración de PDF
+  // Configuración de PDF (calidad máxima para impresión)
   PDF: {
     PAGE_FORMAT: 'a4',
     ORIENTATION: 'p', // 'p' = portrait, 'l' = landscape
     UNIT: 'mm',
     MARGIN: 10,
-    IMAGE_QUALITY: 1.0,
-    IMAGE_FORMAT: 'JPEG'
+    IMAGE_QUALITY: 1.0, // 100% calidad (máximo)
+    IMAGE_FORMAT: 'JPEG' // JPEG con q=100 en Cloudinary
+    // Las imágenes se cargan con transformación Cloudinary:
+    // q_100 (calidad 100%), dpr_3.0 (retina x3), w_3000 (ancho 3000px)
+    // Esto garantiza PDFs de calidad profesional para impresión (300 DPI)
   },
 
   // Configuración de Zoom
